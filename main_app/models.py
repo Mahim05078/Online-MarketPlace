@@ -71,19 +71,79 @@ class Shopassigned(models.Model):
         return "%s %s" % (self.owner_id, self.shop_id)
 
 
-
 class RequestedRent(models.Model):
     NID = models.TextField(primary_key=True)
     shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE)
-    is_granted = models.IntegerField(blank=False,null=False)
-    paid = models.IntegerField(blank=False,null=False)
+    is_granted = models.IntegerField()
+    paid = models.IntegerField()
     name = models.TextField(null=False, blank=False)
-    email = models.TextField(null=False)
-    mobile = models.TextField(null=False)
+    email = models.TextField()
+    mobile = models.TextField()
     address= models.TextField()
 
     def __str__(self):
         return "%s %s" % (self.name,self.shop_id)
+
+
+class DeleivaryMan(models.Model):
+    delman_id = models.TextField(primary_key=True)
+    name = models.TextField(null=False,blank=False)
+    password = models.TextField(null=False)
+    email = models.TextField()
+    contact_no = models.TextField(null = False, blank=False)
+    availibility = models.BooleanField()
+    order_no = models.IntegerField()
+
+    def __str__(self):
+        return "%s %s" % (self.name, self.delman_id)
+
+class Invoice(models.Model):
+    order_id = models.TextField(primary_key=True)
+    cust_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    order_date  = models.DateField(null = False)
+    address = models.TextField()
+    is_assigned = models.BooleanField()
+    is_delivered = models.BooleanField()
+    delman_id = models.ForeignKey(DeleivaryMan,on_delete=models.CASCADE)
+    is_paid = models.BooleanField()
+
+    def __str__(self):
+        return "%s %s" % (self.order_id,self.cust_id)
+
+
+class OrderedItem(models.Model):
+    order_item_id = models.TextField(primary_key=True)
+    order_id = models.ForeignKey(Invoice,on_delete=models.CASCADE)
+    item_id = models.ForeignKey(Item,on_delete=models.CASCADE)
+    shop_id = models.ForeignKey(Shop,on_delete=models.CASCADE)
+    quantity = models.IntegerField(null=False)
+
+def __str__(self):
+    return "%s %s" % (self.order_item_id,self.order_id)
+
+
+class SalesManager(models.Model):
+    sm_id = models.TextField(primary_key=True)
+    password = models.TextField(null = False)
+    name = models.TextField(null=False)
+    contact_no = models.TextField(null=False)
+    email = models.TextField()
+
+
+    def __str__(self):
+        return "%s %s" % (self.sm_id, self.name)
+
+class Review(models.Model):
+    rev_id = models.TextField(primary_key=True)
+    cust_id = models.ForeignKey(Customer,on_delete=models.CASCADE)
+    order_item_id = models.ForeignKey(OrderedItem,on_delete=models.CASCADE)
+    order_id = models.ForeignKey(Invoice,on_delete = models.CASCADE)
+    feedback = models.TextField()
+ 
+    def __str__(self):
+        return "%s %s" % (self.rev_id, self.cust_id)
+
+
 
 
 
