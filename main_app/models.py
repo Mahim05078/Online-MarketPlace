@@ -69,17 +69,17 @@ class Shopassigned(models.Model):
 
     def __str__(self):
         return "%s %s" % (self.owner_id, self.shop_id)
-    
-    
-    
-   class RequestedRent(models.Model):
-    NID = models.TextField(primary_key=true)
-    shop_id = models.ForeignKey(Shop, on_delete=model.CASCADE)
-    is_granted = models.IntegerField()
-    paid = models.IntegerField()
+
+
+
+class RequestedRent(models.Model):
+    NID = models.TextField(primary_key=True)
+    shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    is_granted = models.IntegerField(blank=False,null=False)
+    paid = models.IntegerField(blank=False,null=False)
     name = models.TextField(null=False, blank=False)
-    email = models.TextField()
-    mobile = models.TextField()
+    email = models.TextField(null=False)
+    mobile = models.TextField(null=False)
     address= models.TextField()
 
     def __str__(self):
