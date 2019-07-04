@@ -1,0 +1,61 @@
+from django import forms
+from .models import User_Login,Customer
+
+
+class login_form(forms.Form):
+
+    name = forms.CharField(widget=forms.TextInput(
+        attrs={'label': 'Username', 'class': 'form-control', 'placeholder': 'Enter Name'}))
+    password = forms.CharField(label='Password', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Enter Password', 'type': 'password'}))
+
+    def clean(self, *args, **kwargs):
+        print("I am here")
+        user_name = self.cleaned_data.get("name")
+        user_password = self.cleaned_data.get("password")
+        print(user_password)
+        user_obj = User_Login.objects.filter(user_name=user_name).first()
+        # print(user_obj.user_pass)
+        if not user_obj:
+            raise forms.ValidationError("Invalid Username")
+
+        else:
+            if user_obj.user_pass != user_password:
+                raise forms.ValidationError(
+                    "Password Does not Match with username")
+
+        return user_name
+
+
+class login(forms.Form):
+    cust_id = forms.CharField(widget=forms.TextInput(
+        attrs={'label': 'Username', 'class': 'form-control', 'placeholder': 'Enter Name'}))
+    cust_password = forms.CharField(label='Password', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Enter Password', 'type': 'password'}))
+
+    def clean(self, *args, **kwargs):
+        print("I am here")
+        cust_id = self.cleaned_data.get("cust_id")
+        cust_password = self.cleaned_data.get("cust_password")
+        print(cust_id)
+        user_obj = Customer.objects.filter(cust_id=cust_id).first()
+        # print(user_obj.user_pass)
+        if not user_obj:
+            raise forms.ValidationError("Invalid Username")
+
+        else:
+            if user_obj.cust_password != cust_password:
+                raise forms.ValidationError(
+                    "Password Does not Match with username")
+
+        return cust_password
+
+# class MedicineModelForm(forms.ModelForm):
+#     class Meta:
+#         model = Medicine
+#         fields = ["medicineName"]
+
+#     # def __init__(self, *args, **kwargs):
+#     #     super(ProductForm, self).__init__(*args, **kwargs)  # Call to ModelForm constructor
+#     #     self.fields['long_desc'].widget.attrs['cols'] = 10
+#     #     self.fields['long_desc'].widget.attrs['cols'] = 20

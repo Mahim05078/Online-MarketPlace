@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1>Welcome to our Market</h1>
+    <div>
+        <p>Still building...</p>
+        <p>Name: {{ name|lower }}</p>
+        <p>Country: {{ country }} </p>
+        <p>
+            {% for num in list %}
+                {% if num <= 1 %}
+                <h{{ num }}> You can access this after only 6 months </h{{ num }}>
+                {% else  %}
+                <h{{ num }}> Life will be more easier very soon </h{{ num }}>
+                {% endif %}
+
+            {% endfor %}
+        </p>
+    </div>
+    
+{% endblock %}

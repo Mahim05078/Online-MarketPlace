@@ -10,6 +10,14 @@ class Item(models.Model):
         return self.itemname
 
 
+class User_Login(models.Model):
+    user_name = models.CharField(max_length=30, primary_key=True)
+    user_pass = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.user_name
+
+
 class Shop(models.Model):
     shopid = models.IntegerField(primary_key=True)
     bookedStatus = models.IntegerField(null=False, blank=False)

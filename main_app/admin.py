@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Item, Shop, Customer, ShopItem, Shopowner, Shopassigned, RequestedRent, DeleivaryMan,Invoice, OrderedItem,SalesManager,Review
+from .models import Item, Shop, Customer, ShopItem, Shopowner, Shopassigned, RequestedRent, DeleivaryMan,Invoice, OrderedItem,SalesManager,Review,User_Login 
 
 
 
@@ -18,5 +18,6 @@ admin.site.register(Invoice)
 admin.site.register(OrderedItem)
 admin.site.register(SalesManager)
 admin.site.register(Review)
+admin.site.register(User_Login)
 
 
