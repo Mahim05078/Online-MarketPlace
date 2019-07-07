@@ -20,6 +20,8 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 <link href="../static/css/bootstrap.css" rel='stylesheet' type='text/css' />
 <!-- Custom Theme files -->
 <link href="../static/css/style.css" rel='stylesheet' type='text/css' />
+<link href="../static/css/login.css" rel='stylesheet' type='text/css' />
+
 <!-- js -->
    <script src="../static/js/jquery-1.11.1.min.js"></script>
 <!-- //js -->
@@ -271,17 +273,21 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 		<div class="main-agileits">
 				<div class="form-w3agile">
 					<h3>Login</h3>
-					<form action="#" method="post">
-						<div class="key">
+					<form  method="post">
+					{% csrf_token %}
+						{% comment %} <div class="key">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
-							<input  type="text" value="Email" name="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+							<input  type="email" value="Email" name="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
 							<div class="clearfix"></div>
-						</div>
+						</div>action="/name"
 						<div class="key">
 							<i class="fa fa-lock" aria-hidden="true"></i>
 							<input  type="password" value="Password" name="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
 							<div class="clearfix"></div>
-						</div>
+						</div> {% endcomment %}
+						{{ loginform.as_p }}
+    					<br>
+						<input type="hidden" name="next" value="{{ request.GET.next }}" />
 						<input type="submit" value="Login">
 					</form>
 				</div>

@@ -30,12 +30,12 @@ class Shop(models.Model):
 class Customer(models.Model):
     cust_id = models.IntegerField(primary_key=True)
     cust_name = models.TextField(null=False, blank=False)
-    cust_Adress = models.TextField(max_length=250, null=True, blank=True)
+    cust_Address = models.TextField(max_length=250, null=True, blank=True)
     cust_password = models.TextField(max_length=100, blank=False, null=False)
     cust_contact = models.TextField(max_length=15, null=False, blank=False)
     cust_email = models.TextField(max_length=100, blank=False, null=False)
     cust_creditno = models.TextField(max_length=20, blank=False, null=False)
-    cust_dob = models.DateField()
+    cust_dob = models.DateField(blank=True)
 
     def __str__(self):
         return "%s %s" % (self.cust_name, self.cust_id)

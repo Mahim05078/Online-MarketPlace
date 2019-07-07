@@ -40,7 +40,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 <link href='//fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
 <!--- start-rate---->
 <script src="../static/js/jstarbox.js"></script>
-	<link rel="stylesheet" href="css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
+	<link rel="stylesheet" href="../static/css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
 		<script type="text/javascript">
 			jQuery(function() {
 			jQuery('.starbox').each(function() {
@@ -272,10 +272,32 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 		<div class="main-agileits">
 				<div class="form-w3agile form1">
 					<h3>Register</h3>
-					<form action="#" method="post">
+					<form  method="post">
+					{% csrf_token %}
+					{{registerform}}
 						<div class="key">
 							<i class="fa fa-user" aria-hidden="true"></i>
-							<input  type="text" value="Username" name="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}" required="">
+							<input  type="text" value="name" name="name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'name';}" required="">
+							<div class="clearfix"></div>
+						</div>
+						<div class="key">
+							<i class="fa fa-phone" aria-hidden="true"></i>
+							<input  type="text" value="Contact" name="Contact" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Contact';}" required="">
+							<div class="clearfix"></div>
+						</div>
+						<div class="key">
+							<i class="fa fa-calendar" aria-hidden="true"></i>
+							<input  type="date" value="date of birth" name="date" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'date';}" required="">
+							<div class="clearfix"></div>
+						</div>
+						<div class="key">
+							<i class="fa fa-credit-card" aria-hidden="true"></i>
+							<input  type="text" value="creditno" name="creditno" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'creditno';}" required="">
+							<div class="clearfix"></div>
+						</div>
+						<div class="key">
+							<i class="fa fa-circle" aria-hidden="true"></i>
+							<input  type="text" value="address" name="address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'adress';}" required="">
 							<div class="clearfix"></div>
 						</div>
 						<div class="key">
@@ -283,17 +305,34 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 							<input  type="text" value="Email" name="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
 							<div class="clearfix"></div>
 						</div>
+						<label for="pass">Password (6 characters minimum):</label>
 						<div class="key">
 							<i class="fa fa-lock" aria-hidden="true"></i>
-							<input  type="password" value="Password" name="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+							<input id="pass" type="password"  name="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required="">
 							<div class="clearfix"></div>
 						</div>
+						<label for="repass">Re-Enter Password:</label>
 						<div class="key">
 							<i class="fa fa-lock" aria-hidden="true"></i>
-							<input  type="password" value="Confirm Password" name="Confirm Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Confirm Password';}" required="">
+							<input id="repass" type="password"  name="ConfirmPassword" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required="">
 							<div class="clearfix"></div>
 						</div>
-						<input type="submit" value="Submit">
+						{% if form.errors %}
+    						{% for field in form %}
+        						{% for error in field.errors %}
+            						<div class="alert alert-danger">
+                						<strong>{{ error|escape }}</strong>
+            						</div>
+        						{% endfor %}
+    						{% endfor %}
+    						{% for error in form.non_field_errors %}
+        						<div class="alert alert-danger">
+            						<strong>{{ error|escape }}</strong>
+        						</div>
+    						{% endfor %}
+						{% endif %}
+						<br>
+						<input type="submit" value="Register">
 					</form>
 				</div>
 				

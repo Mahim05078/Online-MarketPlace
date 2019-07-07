@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 from django.views.generic import ListView
 from .models import Shop
-from . import forms
+# from . import forms
 from django.shortcuts import render, redirect
 
 
@@ -20,22 +20,6 @@ class HomeView(TemplateView):
 
 class AboutView(TemplateView):
     template_name = "about.html"
-
-
-# class loginView(TemplateView):
-#     template_name = "login.html"
-
-
-def login(request):
-    login_form = forms.login_form()
-    if request.method == "POST":
-        login_form = forms.login_form(request.POST)
-        # print(print(request.POST.get("password")))
-        if login_form.is_valid():
-            # print(request.POST)
-            return redirect('/index.html/')
-
-    return render(request, 'login.html', {'login_form': login_form})
 
 
 class registerView(TemplateView):
