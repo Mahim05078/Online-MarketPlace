@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'main_app',
     'login_app',
     'register_app',
+    'AdminMod',
 ]
 
 MIDDLEWARE = [

@@ -2,7 +2,6 @@ from django import forms
 from .models import Customer
 
 
-
 class loginform(forms.Form):
 
     email = forms.EmailField(label='Email', widget=forms.TextInput(
@@ -25,4 +24,3 @@ class loginform(forms.Form):
                     "Invalid Password. Please try again.")
 
         return cust_email
-
