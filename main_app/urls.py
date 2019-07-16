@@ -11,5 +11,8 @@ urlpatterns = [
     path('', views.HomeView.as_view(), name="home"),
     path('about.html/', views.AboutView.as_view(), name="about"),
     path('index.html/', views.index),
-    # path('index.html/', views.login),
+    path('application.html/', views.application),
+    path('contact.html/', views.contact),
+    path('shoplisttorent.html/', views.shoplisttorent),
+    # path(r'shoplisttorent.html/?*=click+me', views.application),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

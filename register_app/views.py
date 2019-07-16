@@ -5,6 +5,9 @@ from django.http import HttpResponseRedirect
 from main_app.models import Customer
 from login_app.forms import loginform
 from django.contrib import messages
+import hashlib
+from django.core.mail import send_mail
+from django.conf import settings
 
 # Create your views here.
 
@@ -23,9 +26,16 @@ def register(request):
                     customer.cust_dob = request.POST.get('date')
                     customer.cust_email = request.POST.get('Email')
                     customer.cust_creditno = request.POST.get('creditno')
-                    customer.cust_password = request.POST.get('Password')
+                    customer.cust_password = hashlib.sha256(
+                        request.POST.get('Password').encode('utf-8')).hexdigest()
                     customer.cust_Address = request.POST.get('address')
                     customer.save()
+
+                    subject = 'Thank you for registering to our site'
+                    message = ' it  means a world to us '
+                    email_from = settings.EMAIL_HOST_USER
+                    recipient_list = [customer.cust_email, ]
+                    send_mail(subject, message, email_from, recipient_list)
                     # return render(request, 'login.html', {'loginform': login_form})
                     return redirect("http://127.0.0.1:8000/login.html")
                 else:
