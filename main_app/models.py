@@ -29,7 +29,6 @@ class Shop(models.Model):
     def __str__(self):
         return "%s %s" % (self.shopname, self.shopid)
 
-
 class Customer(models.Model):
     cust_id = models.IntegerField(primary_key=True)
     cust_name = models.TextField(null=False, blank=False)
@@ -78,6 +77,7 @@ class Shopassigned(models.Model):
     expire_Date = models.DateField()
     remainPayment = models.FloatField(blank=False, null=False)
 
+
     def __str__(self):
         return "%s %s" % (self.owner_id, self.shop_id)
 
@@ -85,7 +85,7 @@ class Shopassigned(models.Model):
 class RequestedRent(models.Model):
     NID = models.TextField(primary_key=True)
     shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE)
-    is_granted = models.IntegerField()
+    is_granted = models.BooleanField(default = False)
     paid = models.IntegerField()
     name = models.TextField(null=False, blank=False)
     email = models.TextField()

@@ -25,3 +25,8 @@ class login_form(forms.Form):
                     "Password Does not Match with username")
 
         return user_name
+
+class shopform(forms.Form):
+
+    def clean(self, *args, **kwargs):
+        print("I am here")

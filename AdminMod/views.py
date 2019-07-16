@@ -29,6 +29,32 @@ def applicationview(request):
     return render(request, 'applicationview.html/', {'applications': applications})
 
 
+def shopEntry(request):
+    Shop_form = forms.shopform(request.POST)
+    if request.method == "POST":
+        # register_form = forms.registerform(request.POST)
+        # print(print(request.POST.get("password")))
+        if request.POST.get('Id') and request.POST.get('name'):
+            if request.POST.get('area') and request.POST.get('rentcost'):
+                newShop = Shop()
+                newShop.shopid = request.POST.get('Id')
+                newShop.shopname = request.POST.get('name')
+                newShop.bookedStatus = 0
+                newShop.rentCost = request.POST.get('rentcost')
+                newShop.area = request.POST.get('area')
+                newShop.floor = request.POST.get('floor')
+                newShop.save()
+            else:
+                print("error1")
+
+            #     raise forms.ValidationError("Password doesn't match")
+
+        else:
+            print("error3")
+
+    return render(request, 'Addshopform.html')
+
+
 def Shopmanagement(request):
     shops = Shop.objects.all()
     return render(request, 'Shopmanagement.html/', {'shops': shops})
@@ -37,3 +63,14 @@ def Shopmanagement(request):
 def Shopstatistics(request):
     shops = Shop.objects.all()
     return render(request, 'Shopstatistics.html/', {'shops': shops})
+
+
+def tmp(request):
+    #send mail
+    applications = RequestedRent.objects.all()
+    if request.GET.get('btn'):
+        print("heere")
+        return render(request, 'applicationview.html/', {'applications': applications})
+    
+    
+    return render(request, 'applicationview.html/', {'applications': applications})

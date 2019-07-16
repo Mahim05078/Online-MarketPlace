@@ -9,4 +9,7 @@ urlpatterns = [
     path(r'applicationview.html/', views.applicationview),
     path(r'Shopmanagement.html/', views.Shopmanagement),
     path(r'Shopstatistics.html/', views.Shopstatistics),
+    path(r'Addshopform.html/', views.shopEntry),
+    path(r'tmp.html/', views.tmp),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
