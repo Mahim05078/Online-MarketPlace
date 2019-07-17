@@ -3,7 +3,11 @@ from django.views.generic import TemplateView
 from . import forms
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from main_app.models import Shop, RequestedRent
+from main_app.models import Shop, RequestedRent, Shopowner, Shopassigned
+from django.conf import settings
+from django.core.mail import send_mail
+import datetime
+
 
 # Create your views here.
 
@@ -66,11 +70,66 @@ def Shopstatistics(request):
 
 
 def tmp(request):
-    #send mail
+    # send mail
+
     applications = RequestedRent.objects.all()
-    if request.GET.get('btn'):
+    if request.GET.get('email'):
         print("heere")
+        url = request.get_full_path()
+        id = url.split("=")[1]
+        application = RequestedRent.objects.filter(NID=(int('0' + id))).first()
+        id = application.shop_id.shopid
+        application.is_granted = 1
+        application.save()
+
+        subject = 'Appointment'
+        message = 'Thank you for apply to our market .Please come with 7 days upto 10.00 to 4.00. Office:Polashi,BUET'
+
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [application.email, ]
+        send_mail(subject, message, email_from, recipient_list)
+
         return render(request, 'applicationview.html/', {'applications': applications})
-    
-    
+
+    elif request.GET.get('grant'):
+        url = request.get_full_path()
+        id = url.split("=")[1]
+        application = RequestedRent.objects.filter(NID=(int('0' + id))).first()
+
+        shopowner = Shopowner()
+        shopowner.owner_id = Shopowner.objects.all().count()+1
+        shopowner.owner_name = application.name
+        shopowner.owner_password = "1234"
+        shopowner.owner_contact = application.mobile
+        shopowner.owner_dob = application.dob
+        shopowner.owner_email = application.email
+        shopowner.owner_nid = application.NID
+        shopowner.owner_Adress = application.address
+        shopowner.num_shop = application.shop_id.shopid
+        shopowner.owner_creditno = "23465"
+        shopowner.save()
+
+        shop = Shop.objects.filter(shopid=application.shop_id.shopid).first()
+        shop.bookedStatus = 1
+        shop.save()
+
+        shopasg = Shopassigned()
+        shopasg.owner_id = shopowner
+        shopasg.shop_id = shop
+        shopasg.remainPayment = 0
+        # shopasg.expire_Date = datetime.date.today
+        shopasg.save()
+
+        subject = 'Shop Assignment'
+        
+        message = "your id is: "+str(shopowner.owner_id)+" and password is : " + str(shopowner.owner_password) +" Shop is : " + str(shopowner.num_shop)
+
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [shopowner.owner_email, ]
+        send_mail(subject, message, email_from, recipient_list)
+
+        application.delete()
+
+        return render(request, 'applicationview.html/', {'applications': applications})
+
     return render(request, 'applicationview.html/', {'applications': applications})

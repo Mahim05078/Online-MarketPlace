@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 
 class Item(models.Model):
@@ -23,11 +24,12 @@ class Shop(models.Model):
     shopname = models.TextField(null=False, blank=False)
     bookedStatus = models.IntegerField(null=False, blank=False)
     rentCost = models.FloatField(blank=False)
-    area = models.FloatField(null=False,blank=False)
-    floor = models.IntegerField(null=False,blank=False)
+    area = models.FloatField(null=False, blank=False)
+    floor = models.IntegerField(null=False, blank=False)
 
     def __str__(self):
         return "%s %s" % (self.shopname, self.shopid)
+
 
 class Customer(models.Model):
     cust_id = models.IntegerField(primary_key=True)
@@ -62,7 +64,7 @@ class Shopowner(models.Model):
     owner_contact = models.TextField(max_length=15, null=False, blank=False)
     owner_email = models.TextField(max_length=100, blank=True, null=True)
     owner_creditno = models.TextField(max_length=20, blank=False, null=False)
-    owner_dob = models.TimeField()
+    owner_dob = models.DateField()
     num_shop = models.IntegerField()
     owner_nid = models.TextField(max_length=100, blank=False, null=False)
 
@@ -73,10 +75,9 @@ class Shopowner(models.Model):
 class Shopassigned(models.Model):
     owner_id = models.ForeignKey(Shopowner, on_delete=models.CASCADE)
     shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE)
-    rent_Date = models.DateField(auto_now=True)
-    expire_Date = models.DateField()
+    rent_Date = models.DateField(("Date"), default=datetime.date.today)
+    expire_Date = models.DateField(("Date"), default=datetime.date.today)
     remainPayment = models.FloatField(blank=False, null=False)
-
 
     def __str__(self):
         return "%s %s" % (self.owner_id, self.shop_id)
@@ -85,7 +86,7 @@ class Shopassigned(models.Model):
 class RequestedRent(models.Model):
     NID = models.TextField(primary_key=True)
     shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE)
-    is_granted = models.BooleanField(default = False)
+    is_granted = models.BooleanField(default=False)
     paid = models.IntegerField()
     name = models.TextField(null=False, blank=False)
     email = models.TextField()
@@ -94,7 +95,7 @@ class RequestedRent(models.Model):
     dob = models.DateField(blank=True)
 
     def __str__(self):
-        return "%s %s" % (self.name, self.shop_id)
+        return self.shop_id
 
 
 class DeleivaryMan(models.Model):

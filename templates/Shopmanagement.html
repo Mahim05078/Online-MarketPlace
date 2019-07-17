@@ -206,10 +206,8 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 									<td class="column5">{{ shop.area }} </td>
 									<td class="column6">{{ shop.floor }} </td>
 
-									<td> <button class="button" onclick="window.location.href = 'http://127.0.0.1:8000/gotoadmin/Addshopform.html';" name={{shop.shopid}} style="vertical-align:middle"><span>View Shop </span></button> </td>
-									<!-- <input type="button" id="btn" name={{shop.shopid}}  value="View Stats" style="width:100%"> -->
-									<!-- <a href="{% url 'shop' pk=shop.shopid %}" >{{ shop.shopid }}</a> -->
-
+									<td>  <input type="button" id="btn" name={{shop.shopid}}  value="View Stats" style="width:100%"> </td>
+									
 								<tr>
 									{% endfor %}
 
