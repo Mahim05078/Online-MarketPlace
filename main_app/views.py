@@ -30,7 +30,7 @@ class registerView(TemplateView):
 
 
 def index(request):
-    return render(request, 'index.html', {})
+    return redirect("http://127.0.0.1:8000/")
 
 
 def application(request):
@@ -41,7 +41,8 @@ def application(request):
         if request.POST.get('Email') and request.POST.get('name') and request.POST.get('Contact'):
             if request.POST.get('NID') and request.POST.get('address'):
                 customer = RequestedRent()
-                shop = Shop.objects.filter(shopid=(int('0' + request.POST.get('shopid')))).first()
+                shop = Shop.objects.filter(
+                    shopid=(int('0' + request.POST.get('shopid')))).first()
                 customer.NID = request.POST.get('NID')
                 customer.shop_id = shop
                 customer.name = request.POST.get('name')
@@ -69,6 +70,46 @@ def application(request):
 
 def contact(request):
     return render(request, 'contact.html', {})
+
+
+def care(request):
+    return render(request, 'care.html', {})
+
+
+def codes(request):
+    return render(request, 'codes.html', {})
+
+
+def faqs(request):
+    return render(request, 'faqs.html', {})
+
+
+def hold(request):
+    return render(request, 'hold.html', {})
+
+
+def kitchen(request):
+    return render(request, 'kichen.html', {})
+
+
+def offer(request):
+    return render(request, 'offer.html', {})
+
+
+def shipping(request):
+    return render(request, 'shipping.html', {})
+
+
+def wishlist(request):
+    return render(request, 'wishlist.html', {})
+
+
+def terms(request):
+    return render(request, 'terms.html', {})
+
+
+def single(request):
+    return render(request, 'single.html', {})
 
 
 def shoplisttorent(request):
