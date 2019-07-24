@@ -11,7 +11,6 @@ import datetime
 
 # Create your views here.
 
-
 class ShopView(TemplateView):
     template_name = "shopowner.html"
 
@@ -19,6 +18,10 @@ class ShopView(TemplateView):
 def index(request, user):
     print(user)
     return render(request, 'shopowner.html', {'uxser': user})
+
+def inventoryView(request):
+    # print(user)
+    return render(request, 'Inventory.html', {})
 
 
 def login(request):
@@ -30,7 +33,7 @@ def login(request):
             # print(request.POST)
             user = request.POST.get("name")
             owner = Shopowner.objects.filter(owner_id=int('0' + user)).first()
-            
+
             return render(request, 'shopowner.html', {'owner': owner})
 
     return render(request, 'Login.html', {'login_form': login_form})

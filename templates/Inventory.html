@@ -63,7 +63,74 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 			});
 		});
 	</script>
-	<!---//End-rate---->
+    <!---//End-rate---->
+    
+    <style>
+		#shops {
+		  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+		
+		#shops td, #shops th {
+		  border: 1px solid #ddd;
+		  padding: 8px;
+		}
+		
+		#shops tr:nth-child(even){background-color: #f2f2f2;}
+		
+		#shops tr:hover {background-color: #ddd;}
+		
+		#shops th {
+		  padding-top: 12px;
+		  padding-bottom: 12px;
+		  text-align: left;
+		  background-color: #4CAF50;
+		  color: white;
+		}
+		</style>
+
+	<style>
+		.button {
+	  display: inline-block;
+	  border-radius: 4px;
+	  background-color: #4CAF50;
+	  border: none;
+	  color: rgb(1, 14, 3);
+	  text-align: center;
+	  font-size: 18px;
+	  padding: 10px;
+	  width: 200px;
+	  transition: all 0.5s;
+	  cursor: pointer;
+	  margin: 5px;
+	}
+	
+	.button span {
+	  cursor: pointer;
+	  display: inline-block;
+	  position: relative;
+	  transition: 0.5s;
+	}
+	
+	.button span:after {
+	  content: '\00bb';
+	  position: absolute;
+	  opacity: 0;
+	  top: 0;
+	  right: -20px;
+	  transition: 0.5s;
+	}
+	
+	.button:hover span {
+	  padding-right: 25px;
+	}
+	
+	.button:hover span:after {
+	  opacity: 1;
+	  right: 0;
+	}
+	</style>
 
 </head>
 
@@ -80,46 +147,24 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 			<br>
 			<br>
-			You are {{ owner.owner_name }}
+			
 			<br>
 			<br>
 			<br>
 
-			
-			<!-- <li><a href="http://127.0.0.1:8000/managemyshop/shopowner.html" class="hyper"> <span>Home</span></a></li>
-			<li><a href="http://127.0.0.1:8000/managemyshop/Inventory.html" class="hyper"><span>Inventory</span></a></li>
+<!-- 			
+			<li><a href="http://127.0.0.1:8000/managemyshop/shopowner.html" class="hyper"> <span>Home</span></a></li>
+			<li><a href="http://127.0.0.1:8000/managemyshop/shopowner.html" class="hyper"><span>Inventory</span></a></li>
 			<li><a href="http://127.0.0.1:8000/managemyshop/shopowner.html" class="hyper"><span>Product Display</span></a></li>
 			<li><a href="http://127.0.0.1:8000/managemyshop/shopowner.html" class="hyper"><span>Sales Log</span></a></li>
 			<li><a href="http://127.0.0.1:8000/managemyshop/shopowner.html" class="hyper"><span>Contact Admin</span></a></li> -->
 
-			<div class="grid_3 grid_5 wow fadeInRight animated" data-wow-delay=".5s">
-				<h3 class="bars">Dashboard</h3>
-					   <h1 class=>
-					<a href="#"><span class="abel label-info"">Home</span></a>
-					<a href="Inventory.html"><span class="label label-success">Inventory</span></a>
-					<a href="#"><span class="label label-success">Product Display</span></a>
-					<a href="#"><span class="label label-warning">Sales Log</span></a>
-					<a href="#"><span class="label label-danger">Contact Admin</span></a>
-				  </h1>
-			</nav>
-			
-	
-		</div>
-
-		<!-- <br>
-		<form action="newpage.php">
-			First name:<br>
-			<input type="text" name="Username" value= {{ owner.owner_name }}>
-			<br><br>
-			<input type="submit" value="Submit">
-		  </form>  -->
-
 			</ul>
-		</div>
-		</nav>
-		
-
-	</div>
+        </div>
+        
+        <button class="button" style="vertical-align:middle" onclick="window.location.href = 'http://127.0.0.1:8000/gotoadmin/Addshopform.html';"><span>Add
+            Product </span></button>
+        <button class="button" style="vertical-align:middle"><span>Delete Product </span></button>
 	</div>
 
 	<br>
@@ -173,8 +218,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 			<div class="clearfix"></div>
 			<div class="footer-bottom">
 				<h2><a href="index.html"><b>T<br>H<br>E</b>Big Store<span>The Best Supermarket</span></a></h2>
-				<p class="fo-para">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-					labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</p>
+				<p class="fo-para"></p>
 				<ul class="social-fo">
 					<li><a href="#" class=" face"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
 					<li><a href="#" class=" twi"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
@@ -200,69 +244,6 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 			</div>
 		</div>
 	</div>
-	<!-- //footer-->
-
-	<!-- smooth scrolling -->
-	<script type="text/javascript">
-		$(document).ready(function () {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-				};
-			*/
-			$().UItoTop({ easingType: 'easeOutQuart' });
-		});
-	</script>
-	<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-	<!-- //smooth scrolling -->
-	<!-- for bootstrap working -->
-	<script src="../static/js/bootstrap.js"></script>
-	<!-- //for bootstrap working -->
-	<script type='text/javascript' src="../static/js/jquery.mycart.js"></script>
-	<script type="text/javascript">
-		$(function () {
-
-			var goToCartIcon = function ($addTocartBtn) {
-				var $cartIcon = $(".my-cart-icon");
-				var $image = $('<img width="30px" height="30px" src=" ../static/ ' + $addTocartBtn.data("image") + '"/>').css({ "position": "fixed", "z-index": "999" });
-				$addTocartBtn.prepend($image);
-				var position = $cartIcon.position();
-				$image.animate({
-					top: position.top,
-					left: position.left
-				}, 500, "linear", function () {
-					$image.remove();
-				});
-			}
-
-			$('.my-cart-btn').myCart({
-				classCartIcon: 'my-cart-icon',
-				classCartBadge: 'my-cart-badge',
-				affixCartIcon: true,
-				checkoutCart: function (products) {
-					$.each(products, function () {
-						console.log(this);
-					});
-				},
-				clickOnAddToCart: function ($addTocart) {
-					goToCartIcon($addTocart);
-				},
-				getDiscountPrice: function (products) {
-					var total = 0;
-					$.each(products, function () {
-						total += this.quantity * this.price;
-					});
-					return total * 1;
-				}
-			});
-
-		});
-	</script>
-
-	<!-- product -->
 
 </body>
 
