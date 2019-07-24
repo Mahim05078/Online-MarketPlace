@@ -29,8 +29,9 @@ def login(request):
         if login_form.is_valid():
             # print(request.POST)
             user = request.POST.get("name")
+            owner = Shopowner.objects.filter(owner_id=int('0' + user)).first()
             
-            return redirect('http://127.0.0.1:8000/managemyshop/shopowner.html/', uxser=user)
+            return render(request, 'shopowner.html', {'owner': owner})
 
     return render(request, 'Login.html', {'login_form': login_form})
 
