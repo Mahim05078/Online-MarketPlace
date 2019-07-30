@@ -7,6 +7,7 @@ from main_app.models import Shop, RequestedRent, Shopowner, Shopassigned
 from django.conf import settings
 from django.core.mail import send_mail
 import datetime
+import hashlib
 
 
 # Create your views here.
@@ -99,7 +100,9 @@ def tmp(request):
         shopowner = Shopowner()
         shopowner.owner_id = Shopowner.objects.all().count()+1
         shopowner.owner_name = application.name
-        shopowner.owner_password = "1234"
+        passwd = "1234"
+        shopowner.owner_password = hashlib.sha256(
+            passwd.encode('utf-8')).hexdigest()
         shopowner.owner_contact = application.mobile
         shopowner.owner_dob = application.dob
         shopowner.owner_email = application.email
@@ -121,8 +124,9 @@ def tmp(request):
         shopasg.save()
 
         subject = 'Shop Assignment'
-        
-        message = "your id is: "+str(shopowner.owner_id)+" and password is : " + str(shopowner.owner_password) +" Shop is : " + str(shopowner.num_shop)
+
+        message = "your id is: "+str(shopowner.owner_id)+" and password is : " + str(
+            passwd) + " Shop is : " + str(shopowner.num_shop)
 
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [shopowner.owner_email, ]
