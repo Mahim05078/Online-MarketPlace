@@ -31,7 +31,7 @@
                                             <input type="hidden" name="products_id" value="{{$product->id}}">
                                             <input type="text" class="form-control" name="sku" value="{{old('sku')}}" id="sku" placeholder="SKU" required>
                                             <input type="text" class="form-control" name="size" value="{{old('size')}}" id="size" placeholder="Size" required>
-                                            <input type="text" class="form-control" name="price" value="{{old('price')}}" id="price" placeholder="Price" required>
+                                            <input type="number" min="0" class="form-control" name="price" value="{{old('price')}}" id="price" placeholder="Price" required>
                                             <span style="color: red;">{{$errors->first('price')}}</span>
                                             <input type="number" class="form-control" name="stock" value="{{old('stock')}}" id="stock" placeholder="Stock" required>
                                         </div>

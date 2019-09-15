@@ -105,12 +105,19 @@ class OrdersController extends Controller
 
     public function assign($id)
     {
-        $order=Ordermodel::where('id',$id)->first();
+        $order=Orders_model::findOrFail($id);
         $delman=Deliveryman_model::where('isavailable',0)->first();
-        $order->status="assigned";
-        $order->deliveryman_id=$delman->id;
-        $delman->isavailable=1;
-        $delman->save();
+       
+        if($delman==null)
+        {
+            return back()->with('message','No deliveryman available!!!');
+        }
+        $order->order_status = "assigned";
+        $order->deliveryman_id = $delman->id;
+        
+        $delman->update([
+            'isavailable' => 1
+        ]);
         $order->save();
         return back()->with('message','Assign Order Already!');
         

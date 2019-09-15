@@ -26,7 +26,7 @@
                         @foreach($orders as $order)
                         <?php 
                             $orderedprods=DB::table('orderedproduct')->where('order_id',$order->id)->get();
-
+                            $delman=DB::table('deliveryman')->where('id',$order->deliveryman_id)->first();
                         ?>
                             <tr>
                             <tr class="gradeC">

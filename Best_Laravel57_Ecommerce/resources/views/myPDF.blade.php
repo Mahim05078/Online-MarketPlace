@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Hi</title>
+	<title>Order Details</title>
     
      {{-- <link href="{{asset('frontEnd/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('frontEnd/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -82,10 +82,12 @@
      <br>
      <br>
 
-                            <h3>Total : BDT {{$coupon_amount}}</h3>
+                            <h3>Grand Total : BDT {{$grand_total+$shipping_charges}}</h3>
+                            <h3>shipping charge : BDT {{$shipping_charges}}</h3>
                             <h3>Coupons : {{$coupon_code}}</h3>
                             <h3>Discount : {{$coupon_amount}}</h3>
-                            <h3>Grand Total : BDT {{$grand_total}}</h3>
+                            <h3>Total : BDT {{$coupon_amount+$grand_total}}</h3>
+                            
 
 	
 </body>

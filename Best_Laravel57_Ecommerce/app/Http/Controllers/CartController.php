@@ -25,12 +25,12 @@ class CartController extends Controller
         Session::forget('discount_amount_price');
         Session::forget('coupon_code');
         if($inputToCart['size']==""){
-            return back()->with('message','Please select Size');
+            return back()->with('message','Please select Attribute');
         }else{
             $stockAvailable=DB::table('product_att')->select('stock','sku')->where(['products_id'=>$inputToCart['products_id'],
                 'price'=>$inputToCart['price']])->first();
             if($stockAvailable->stock>=$inputToCart['quantity']){
-                $inputToCart['user_email']='weshare@gmail.com';
+                $inputToCart['user_email']='nazmulhasnsakib@gmail.com';
                 $session_id=Session::get('session_id');
                 if(empty($session_id)){
                     $session_id=str_random(40);

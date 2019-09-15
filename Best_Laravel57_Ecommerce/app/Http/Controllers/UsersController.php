@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Profile_model;
 use App\User;
 use App\Orders_model;
+use App\Cart_model;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -31,12 +33,17 @@ class UsersController extends Controller
         $input_data=$request->all();
         if(Auth::attempt(['email'=>$input_data['email'],'password'=>$input_data['password']])){
             Session::put('frontSession',$input_data['email']);
-            return redirect('/');
+            Cart_model::where('user_email','nazmulhasnsakib@gmail.com')->update([
+                'user_email'=>$input_data['email']
+            ]);
+            return redirect('/viewcart');
         }else{
             return back()->with('message','Account is not Valid!');
         }
     }
     public function logout(){
+        $user_login=User::where('id',Auth::id())->first();
+        Cart_model::where('user_email',$user_login->email)->delete();
         Auth::logout();
         Session::forget('frontSession');
         return redirect('/');
