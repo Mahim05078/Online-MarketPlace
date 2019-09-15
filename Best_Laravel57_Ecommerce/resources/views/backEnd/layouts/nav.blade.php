@@ -34,6 +34,13 @@
                 <li><a href="{{url('/showapplications1')}}">Approve & Give Shop</a></li>
             </ul>
         </li>
+        <li class="submenu {{$menu_active==7? ' active':''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Orders</span></a>
+            <ul>
+                <li><a href="{{url('/admin/orders/show',1)}}">Show Pending Orders</a></li>
+                <li><a href="{{url('/admin/orders/show',2)}}">Show assigned Orders</a></li>
+                <li><a href="{{url('/admin/orders/show',3)}}">Show completed Orders</a></li>
+            </ul>
+        </li>
     </ul>
 </div>
 <!--sidebar-menu-->

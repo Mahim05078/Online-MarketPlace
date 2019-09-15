@@ -42,17 +42,24 @@ Route::post('/register_user','UsersController@register');
 Route::post('/user_login','UsersController@login');
 Route::get('/logout','UsersController@logout');
 
+/// Shopowner Login /////
+// Route::get('/login_shopowner','ShopownerController@loginPage');
+// Route::post('/login_so','ShopownerController@login');
+// Route::get('/logout_shopowner','ShopownerController@logout');
+
 ////// User Authentications ///////////
 Route::group(['middleware'=>'FrontLogin_middleware'],function (){
     Route::get('/myaccount','UsersController@account');
     Route::put('/update-profile/{id}','UsersController@updateprofile');
     Route::put('/update-password/{id}','UsersController@updatepassword');
     Route::get('/check-out','CheckOutController@index');
+    Route::get('/prev_orders','UsersController@prev_orders');
     Route::post('/submit-checkout','CheckOutController@submitcheckout');
     Route::get('/order-review','OrdersController@index');
     Route::post('/submit-order','OrdersController@order');
-    Route::get('/cod','OrdersController@cod');
+    Route::get('/cod/{orid}','OrdersController@cod');
     Route::get('/paypal','OrdersController@paypal');
+    Route::post('/download','OrdersController@download');
 });
 ///
 
@@ -89,18 +96,25 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function (){
     /// ///////// Coupons Area //////////
     Route::resource('/coupon','CouponController');
     Route::get('delete-coupon/{id}','CouponController@destroy');
+    ////order area
+    Route::resource('/orders','OrdersController');
+    Route::get('/orders/show/{id}','OrdersController@show');
+    Route::get('orders/assign/{id}','OrdersController@assign');
+    Route::get('delete-order/{id}','OrdersController@destroy');
 ///
 });
 
 
+/* Shopwner Location */
+// Route::group(['prefix'=>'shopowner','middleware'=>'Shopowner'],function (){
+Route::group(['prefix'=>'shopowner','middleware'=>['auth','Shopowner']],function (){
+    Route::get('/','ShopownerController@index')->name('Shopowner_home');
+    ///setting area 
+    Route::get('/settings', 'ShopownerController@settings');
+    Route::get('/check-pwd','ShopownerController@chkPassword');
+    Route::post('/update-pwd','ShopownerController@updatSOPwd');
 
 
-/* Admin Location */
-Auth::routes(['register'=>false]);
-Route::group(['prefix'=>'shopowner','middleware'=>['auth','shopowner']],function (){
-    Route::get('/', 'ShopownerController@index')->name('shopowner_home');
-    /// Setting Area
-///
 });
 
 

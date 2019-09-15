@@ -10,7 +10,9 @@
         <div class="row">
             <form action="{{url('/submit-order')}}" method="post" class="form-horizontal">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
-
+                <?php
+                   $shipping_charges=1.00;               
+                ?>
                 <input type="hidden" name="users_id" value="{{$shipping_address->users_id}}">
                 <input type="hidden" name="users_email" value="{{$shipping_address->users_email}}">
                 <input type="hidden" name="name" value="{{$shipping_address->name}}">
@@ -20,8 +22,8 @@
                 <input type="hidden" name="pincode" value="{{$shipping_address->pincode}}">
                 <input type="hidden" name="country" value="{{$shipping_address->country}}">
                 <input type="hidden" name="mobile" value="{{$shipping_address->mobile}}">
-                <input type="hidden" name="shipping_charges" value="0">
-                <input type="hidden" name="order_status" value="success">
+                <input type="hidden" name="shipping_charges" value="{{$shipping_charges}}">
+                <input type="hidden" name="order_status" value="pending">
                 @if(Session::has('discount_amount_price'))
                     <input type="hidden" name="coupon_code" value="{{Session::get('coupon_code')}}">
                     <input type="hidden" name="coupon_amount" value="{{Session::get('discount_amount_price')}}">
@@ -96,7 +98,7 @@
                                         <p>{{$cart_data->quantity}}</p>
                                     </td>
                                     <td class="cart_total">
-                                        <p class="cart_total_price">$ {{$cart_data->price*$cart_data->quantity}}</p>
+                                        <p class="cart_total_price">$BDT {{$cart_data->price*$cart_data->quantity}}</p>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -106,21 +108,29 @@
                                         <table class="table table-condensed total-result">
                                             <tr>
                                                 <td>Cart Sub Total</td>
-                                                <td>$ {{$total_price}}</td>
+                                                <td>$BDT {{$total_price}}</td>
                                             </tr>
+                                            
                                             @if(Session::has('discount_amount_price'))
                                                 <tr class="shipping-cost">
                                                     <td>Coupon Discount</td>
-                                                    <td>$ {{Session::get('discount_amount_price')}}</td>
+                                                    <td>$BDT {{Session::get('discount_amount_price')}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Total</td>
-                                                    <td><span>$ {{$total_price-Session::get('discount_amount_price')}}</span></td>
+                                                    <td><span>$BDT {{$total_price-Session::get('discount_amount_price')}}</span></td>
                                                 </tr>
                                             @else
+                                            <?php
+                                                $total_price=$total_price+$shipping_charges;                
+                                            ?>
+                                            <tr>
+                                                    <td>Shipping Charge</td>
+                                                    <td>$BDT {{$shipping_charges}}</td>
+                                                </tr>
                                                 <tr>
                                                     <td>Total</td>
-                                                    <td><span>$ {{$total_price}}</span></td>
+                                                    <td><span>$BDT {{$total_price}}</span></td>
                                                 </tr>
                                             @endif
                                         </table>

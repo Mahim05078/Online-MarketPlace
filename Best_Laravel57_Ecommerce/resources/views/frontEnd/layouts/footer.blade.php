@@ -4,12 +4,12 @@
             <div class="row">
                 <div class="col-sm-2">
                     <div class="companyinfo">
-                        <h2><span>BIG</span>-MART</h2>
-                        <p>Best experience to shopping easily and cheaply</p>
+                        <h2><span>BIG</span>-STORE</h2>
+                        <p>Bring Ease to Your Everyday Shopping Experience</p>
                     </div>
                 </div>
                 <div class="col-sm-7">
-                    <div class="col-sm-3">
+                    {{-- <div class="col-sm-3">
                         <div class="video-gallery text-center">
                             <a href="#">
                                 <div class="iframe-img">
@@ -68,11 +68,11 @@
                             <h2>24 DEC 2014</h2>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-sm-3">
                     <div class="address">
                         <img src="{{asset('frontEnd/images/home/map.png')}}" alt="" />
-                        <p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
+                        <p>Kazi Nazrul Islam Hall BUET</p>
                     </div>
                 </div>
             </div>

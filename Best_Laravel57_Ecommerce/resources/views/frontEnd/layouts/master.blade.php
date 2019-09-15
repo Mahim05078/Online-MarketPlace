@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+        <div class="view" style="background-image: url('static/video/video.gif'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,8 @@
     <link href="{{asset('frontEnd/css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('frontEnd/css/main.css')}}" rel="stylesheet">
     <link href="{{asset('frontEnd/css/responsive.css')}}" rel="stylesheet">
+    <link href="{{asset('frontEnd/css/form.css')}}" rel="stylesheet">
+    
     <!--[if lt IE 9]>
     <script src="{{asset('frontEnd/js/html5shiv.js')}}"></script>
     <script src="{{asset('frontEnd/js/respond.min.js')}}"></script>
@@ -48,9 +51,8 @@
     <link rel="stylesheet" href="{{asset('static/css/jstarbox.css')}}" type="text/css" media="screen" charset="utf-8" />
 
 
-
 </head><!--/head-->
-
+</div>
 <body>
 @include('frontEnd.layouts.header')
 @section('slider')
@@ -99,6 +101,11 @@
             api2._init();
         }
     });
+    new WOW().init();
+    $('.input').intlTelInput({
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"
+    });
 </script>
 </body>
+        
 </html>

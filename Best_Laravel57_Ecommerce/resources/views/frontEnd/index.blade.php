@@ -2,13 +2,20 @@
 @section('title','Home Page')
 @section('content')
     <section>
+            
         <div class="container">
-        <div data-vide-bg="static/video/video.gif">
-        <div class="container">
+                <style>
+                        img {
+                          width: 100%;
+                        }
+                        </style>
+            <div class="container">
             <div class="banner-info">
-                <h3>It is a long established fact that a reader will be distracted by the readable </h3>
-            </div>
-        </div>
+               
+                <img src="{{url('static/video/video.gif')}}" alt="HTML5 Icon" style="width:1024;height:512px;">
+
+                </div>
+       
     </div>
     <br><br>
             <div class="row">
@@ -46,5 +53,6 @@
                 </div>
             </div>
         </div>
+            
     </section>
 @endsection

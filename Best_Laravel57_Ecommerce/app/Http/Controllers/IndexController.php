@@ -7,7 +7,6 @@ use App\ImageGallery_model;
 use App\ProductAtrr_model;
 use App\Products_model;
 use Illuminate\Http\Request;
-use View;
 
 class IndexController extends Controller
 {
@@ -44,7 +43,6 @@ class IndexController extends Controller
     {
         return view('frontEnd.contact');
     }
-
     public function search(Request $request){
 
         $req = $request->all();

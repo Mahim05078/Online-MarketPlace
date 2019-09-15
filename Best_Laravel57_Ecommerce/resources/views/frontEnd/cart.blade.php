@@ -38,7 +38,7 @@
                                     <p>{{$cart_data->product_code}} | {{$cart_data->size}}</p>
                                 </td>
                                 <td class="cart_price">
-                                    <p>${{$cart_data->price}}</p>
+                                    <p>BDT {{$cart_data->price}}</p>
                                 </td>
                                 <td class="cart_quantity">
                                     <div class="cart_quantity_button">
@@ -50,7 +50,7 @@
                                     </div>
                                 </td>
                                 <td class="cart_total">
-                                    <p class="cart_total_price">$ {{$cart_data->price*$cart_data->quantity}}</p>
+                                    <p class="cart_total_price">BDT {{$cart_data->price*$cart_data->quantity}}</p>
                                 </td>
                                 <td class="cart_delete">
                                     <a class="cart_quantity_delete" href="{{url('/cart/deleteItem',$cart_data->id)}}"><i class="fa fa-times"></i></a>
@@ -100,11 +100,11 @@
                     <div class="total_area">
                         <ul>
                             @if(Session::has('discount_amount_price'))
-                                <li>Sub Total <span>$ {{$total_price}}</span></li>
-                                <li>Coupon Discount (Code : {{Session::get('coupon_code')}}) <span>$ {{Session::get('discount_amount_price')}}</span></li>
-                                <li>Total <span>$ {{$total_price-Session::get('discount_amount_price')}}</span></li>
+                                <li>Sub Total <span> BDT {{$total_price}}</span></li>
+                                <li>Coupon Discount (Code : {{Session::get('coupon_code')}}) <span>BDT {{Session::get('discount_amount_price')}}</span></li>
+                                <li>Total <span> BDT {{$total_price-Session::get('discount_amount_price')}}</span></li>
                             @else
-                                <li>Total <span>$ {{$total_price}}</span></li>
+                                <li>Total <span> BDT {{$total_price}}</span></li>
                             @endif
                         </ul>
                         <div style="margin-left: 20px;"><a class="btn btn-default check_out" href="{{url('/check-out')}}">Check Out</a></div>

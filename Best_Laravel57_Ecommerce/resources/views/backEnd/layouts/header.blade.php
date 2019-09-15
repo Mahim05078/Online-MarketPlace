@@ -1,6 +1,6 @@
 <!--Header-part-->
 <div id="header">
-    <h1><a href="dashboard.html">Laravel Admin</a></h1>
+    <h2>ADMIN Panel</h2>
 </div>
 <!--close-Header-part-->
 <!--top-Header-menu-->
@@ -23,8 +23,8 @@
 </div>
 <!--close-top-Header-menu-->
 <!--start-top-serch-->
-<div id="search">
+{{-- <div id="search">
     <input type="text" placeholder="Search here..."/>
     <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
-</div>
+</div> --}}
 <!--close-top-serch-->

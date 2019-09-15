@@ -32,6 +32,6 @@ class User extends Authenticatable
     }
     public function isShopowner()
     {
-        return ($this->isAdmin==2);
+        return ($this->admin==2);
     }
 }

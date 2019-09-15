@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Profile_model;
 use App\User;
+use App\Orders_model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +31,7 @@ class UsersController extends Controller
         $input_data=$request->all();
         if(Auth::attempt(['email'=>$input_data['email'],'password'=>$input_data['password']])){
             Session::put('frontSession',$input_data['email']);
-            return redirect('/viewcart');
+            return redirect('/');
         }else{
             return back()->with('message','Account is not Valid!');
         }
@@ -76,5 +77,14 @@ class UsersController extends Controller
         }else{
             return back()->with('oldpassword','Old Password is Inconrrect!');
         }
+    }
+    public function prev_orders(Request $request)
+    {
+        $req = $request->all();
+        $byCate="";
+        $user_login=User::where('id',Auth::id())->first();
+        $orders = Orders_model::where('users_id',$user_login->id)
+        ->orderBy('updated_at', 'desc')->get();
+        return view('frontEnd.prev_orders',compact('orders'));
     }
 }

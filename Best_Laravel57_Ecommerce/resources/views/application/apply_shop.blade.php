@@ -1,19 +1,20 @@
 @extends('frontEnd.layouts.master')
 @section('title','Add Shops Page')
 @section('content')
-    <div id="breadcrumb"> <a href="{{url('/')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{url('/viewavailableshops')}}">viewavailableshops</a> </div>
     <div class="container-fluid">
         @if(Session::has('message'))
             <div class="alert alert-success text-center" role="alert">
                 <strong>Well done! &nbsp;</strong>{{Session::get('message')}}
             </div>
         @endif
-        <div class="widget-box">
-            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-                
-            </div>
-            
-            <div class="widget-content nopadding">
+
+        {{-- <div class="widget-box"> --}}
+            <div class="row">
+            <div class="col-sm-12">
+            <div class="container">
+                {{-- <div class="main-agileits">
+                    <div class="form-w3agile form1">
+                        <div class="widget-content nopadding"> --}}
                 <h5>Information</h5>
                 <form action="{{route('application.store')}}" method="post" class="form-horizontal">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -64,18 +65,21 @@
                     <div class="control-group">
                         <label for="mobile" class="control-label"> mobile</label>
                         <div class="controls{{$errors->has('mobile')?' has-error':''}}">
-                            <input type="number" min="880" name="mobile" id="mobile" class="form-control" value="{{old('mobile')}}"
+                            <input type="number" name="mobile" id="mobile" class="form-control" value="{{old('mobile')}}"
                                    title="" required="required" minlength="5" maxlength="15" style="width: 400px;">
                             <span class="text-danger">{{$errors->first('mobile')}}</span>
                         </div>
                     </div> 
-                    
+
                     <div class="control-group">
                         <label for="" class="control-label"></label>
                         <div class="controls">
                             <button type="submit" class="btn btn-success">Confirm</button>
                         </div>
-                    </div>
+                     </div>
+                </div>
+            {{--</div> --}}
+        {{-- </div> --}}
                 </form>
             </div>
         </div>
@@ -97,6 +101,23 @@
     <script src="{{asset('js/jquery.peity.min.js')}}"></script>
     <script src="{{asset('js/bootstrap-wysihtml5.js')}}"></script>
     <script>
-        $('.textarea_editor').wysihtml5();
+            $('.textarea_editor').wysihtml5();
+    </script>
+    <script>
+        $("input").intlTelInput({
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"
+        });
     </script>
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+

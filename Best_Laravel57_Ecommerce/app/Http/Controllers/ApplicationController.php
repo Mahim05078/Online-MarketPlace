@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Application_model;
 use App\Shop_model;
 use App\Shopowner_model;
+use App\Http\User;
 use Mail;
 use Carbon;
 
@@ -96,7 +97,7 @@ class ApplicationController extends Controller
         $application=Application_model::findOrFail($id);
 
         $shop=Shop_model::select('*')->where ('id',$application->shopid)->first();
-
+ 
         $shopowner = array('name'=>$application->name,
         'email'=>$application->email,
         'address'=>$application->address,
@@ -116,6 +117,16 @@ class ApplicationController extends Controller
 
          $shopowner['password']=Hash::make($string);
          $spon=Shopowner_model::create($shopowner);
+         DB::table('users')->insert(
+            ['name'=>$application->name,
+        'email'=>$application->email,
+        'address'=>$application->address,
+        'city'=>$application->city,
+        'password'=>$shopowner['password'],
+        'mobile'=>$application->mobile,
+        'admin'=>2
+            ]
+        );
          $shop->shopownerid=$spon->id;
          $shop->isrent=1;
          $shop->rentdate= Carbon\Carbon::now()->toDateString();
