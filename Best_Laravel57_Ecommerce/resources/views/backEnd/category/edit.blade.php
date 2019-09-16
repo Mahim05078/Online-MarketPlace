@@ -1,7 +1,7 @@
 @extends('backEnd.layouts.master')
 @section('title','Edit Category')
 @section('content')
-    <div id="breadcrumb"> <a href="{{url('/admin')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{url('/admin/category/index')}}">Categories</a> <a href="#" class="current">Edit Category</a> </div>
+    <div id="breadcrumb"> <a href="{{url('/admin')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('category.index')}}">Categories</a> <a href="#" class="current">Edit Category</a> </div>
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span12">
@@ -10,10 +10,8 @@
                         <h5>Edit Category</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <form class="form-horizontal" method="post" action="{{url('/admin/category/update')}}" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                        <form class="form-horizontal" method="post" action="{{route('category.update',$edit_category->id)}}" name="basic_validate" id="basic_validate" novalidate="novalidate">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
-                            <input type="hidden" name="id" value="{{$edit_category->id}}">
-                            
                             {{method_field("PUT")}}
                             <div class="control-group{{$errors->has('name')?' has-error':''}}">
                                 <label class="control-label">Category Name :</label>

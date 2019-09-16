@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Category_model;
 use foo\bar;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -17,20 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $uid=Auth::user()->email;
-        $user=DB::table('shopowners')->where('email',$uid)->first();
-        if($user==null)
-        {
-            $menu_active=0;
-            $categories=Category_model::all();
-            return view('backEnd.category.index',compact('menu_active','categories'));
-        }
-        else
-        {
-            $menu_active=0;
-            $categories=Category_model::all();
-            return view('shopowner.category.index',compact('menu_active','categories'));
-        }
+        $menu_active=0;
+        $categories=Category_model::all();
+        return view('backEnd.category.index',compact('menu_active','categories'));
     }
 
     /**
@@ -40,20 +27,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $uid=Auth::user()->email;
-        $user=DB::table('shopowners')->where('email',$uid)->first();
         $menu_active=2;
         $plucked=Category_model::where('parent_id',0)->pluck('name','id');
         $cate_levels=['0'=>'Main Category']+$plucked->all();
-        if($user==null)
-        {
-            return view('backEnd.category.create',compact('menu_active','cate_levels'));
-        }
-        else
-        {
-            return view('shopowner.category.create',compact('menu_active','cate_levels'));
-        }
-        
+        return view('backEnd.category.create',compact('menu_active','cate_levels'));
     }
 
     /**
@@ -80,22 +57,7 @@ class CategoryController extends Controller
         ]);
         $data=$request->all();
         Category_model::create($data);
-
-        $uid=Auth::user()->email;
-        $user=DB::table('shopowners')->where('email',$uid)->first();
-        if($user==null)
-        {
-            $menu_active=0;
-            $categories=Category_model::all();
-            return view('backEnd.category.index',compact('menu_active','categories'));
-        }
-        else
-        {
-            $menu_active=0;
-            $categories=Category_model::all();
-            return view('shopowner.category.index',compact('menu_active','categories'));
-        }
-        
+        return redirect()->route('category.index')->with('message','Added Success!');
     }
 
     /**
@@ -117,22 +79,11 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $uid=Auth::user()->email;
-        $user=DB::table('shopowners')->where('email',$uid)->first();
         $menu_active=0;
         $plucked=Category_model::where('parent_id',0)->pluck('name','id');
         $cate_levels=['0'=>'Main Category']+$plucked->all();
         $edit_category=Category_model::findOrFail($id);
-        if($user==null)
-        {
-            return view('backEnd.category.edit',compact('edit_category','menu_active','cate_levels'));
-        }
-        else
-        {
-            return view('shopowner.category.edit',compact('edit_category','menu_active','cate_levels'));
-        }
-        
-        
+        return view('backEnd.category.edit',compact('edit_category','menu_active','cate_levels'));
     }
 
     /**
@@ -142,19 +93,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $id=$request->id;
-        $uid=Auth::user()->email;
-        $user=DB::table('shopowners')->where('email',$uid)->first();
-        if($user==null)
-        {
-            $sid=100;
-        }
-        else
-        {
-            $sid=$user->shop_id;
-        }
         $update_categories=Category_model::findOrFail($id);
         $this->validate($request,[
             'name'=>'required|max:255|unique:categories,name,'.$update_categories->id,
@@ -166,18 +106,7 @@ class CategoryController extends Controller
             $input_data['status']=0;
         }
         $update_categories->update($input_data);
-        if($user==null)
-        {
-            $menu_active=0;
-            $categories=Category_model::all();
-            return view('backEnd.category.index',compact('menu_active','categories'));
-        }
-        else
-        {
-            $menu_active=0;
-            $categories=Category_model::all();
-            return view('shopowner.category.index',compact('menu_active','categories'));
-        }
+        return redirect()->route('category.index')->with('message','Updated Success!');
     }
 
     /**
@@ -190,9 +119,6 @@ class CategoryController extends Controller
     {
         $delete=Category_model::findOrFail($id);
         $delete->delete();
-        $menu_active=0;
-        $categories=Category_model::all();
-        return view('shopowner.category.index',compact('menu_active','categories'))->with('message','Delete Success!');
-        // return redirect()->route('category.index')->with('message','Delete Success!');
+        return redirect()->route('category.index')->with('message','Delete Success!');
     }
 }

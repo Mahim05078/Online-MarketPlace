@@ -15,7 +15,6 @@
             <div class="widget-content nopadding">
                 <form action="{{route('product.store')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
-                    
                     <div class="control-group">
                         <label class="control-label">Select Category</label>
                         <div class="controls">
@@ -37,15 +36,9 @@
                         </div>
                     </div>
                     <div class="control-group">
-                    <label for="p_name" class="control-label">{{$sid}}</label>
+                        <label for="p_name" class="control-label">Name</label>
                         <div class="controls{{$errors->has('p_name')?' has-error':''}}">
                             <input type="text" name="p_name" id="p_name" class="form-control" value="{{old('p_name')}}" title="" required="required" style="width: 400px;">
-                            <span class="text-danger">{{$errors->first('p_name')}}</span>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <div class="controls{{$errors->has('p_name')?' has-error':''}}">
-                            <input type="hidden" name="shop_id" id="shop_id" class="form-control" value="{{$sid}}" >
                             <span class="text-danger">{{$errors->first('p_name')}}</span>
                         </div>
                     </div>

@@ -15,7 +15,6 @@
             <div class="widget-content nopadding">
                 <form action="{{route('shop.store')}}" method="post" class="form-horizontal">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
-                    
                     <div class="control-group">
                         <label for="shopid" class="control-label">shop id</label>
                         <div class="controls{{$errors->has('shopid')?' has-error':''}}">

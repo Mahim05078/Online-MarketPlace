@@ -7,13 +7,13 @@
         <li class="submenu {{$menu_active==2? ' active':''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Categories</span></a>
             <ul>
                 <li><a href="{{url('/admin/category/create')}}">Add New Category</a></li>
-                <li><a href="{{url('/admin/category/index')}}">List Categories</a></li>
+                <li><a href="{{route('category.index')}}">List Categories</a></li>
             </ul>
         </li>
         <li class="submenu {{$menu_active==3? ' active':''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Products</span></a>
             <ul>
                 <li><a href="{{url('/admin/product/create')}}">Add New Products</a></li>
-                <li><a href="{{url('/admin/product/index')}}">List Products</a></li>
+                <li><a href="{{route('product.index')}}">List Products</a></li>
             </ul>
         </li>
         <li class="submenu {{$menu_active==4? ' active':''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Coupons</span></a>

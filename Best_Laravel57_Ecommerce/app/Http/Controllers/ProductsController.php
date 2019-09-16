@@ -6,9 +6,7 @@ use App\Category_model;
 use App\Products_model;
 use Illuminate\Support\Facades\Storage;
 use Image;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
@@ -21,18 +19,8 @@ class ProductsController extends Controller
     {
         $menu_active=3;
         $i=0;
-        $uid=Auth::user()->email;
-        $user=DB::table('shopowners')->where('email',$uid)->first();
-        if($user==null)
-        {
-            $products=Products_model::orderBy('created_at','desc')->get();
-            return view('backEnd.products.index',compact('menu_active','products','i'));
-        }
-        else
-        {
-            $products=Products_model::orderBy('created_at','desc')->get();
-            return view('shopowner.products.index',compact('menu_active','products','i'));
-        }
+        $products=Products_model::orderBy('created_at','desc')->get();
+        return view('backEnd.products.index',compact('menu_active','products','i'));
     }
 
     /**
@@ -43,21 +31,8 @@ class ProductsController extends Controller
     public function create()
     {
         $menu_active=3;
-        $uid=Auth::user()->email;
-        $user=DB::table('shopowners')->where('email',$uid)->first();
-        if($user==null)
-        {
-            $sid=100;
-            $categories=Category_model::where('parent_id',0)->pluck('name','id')->all();
-            return view('backEnd.products.create',compact('menu_active','categories','sid'));
-        }
-        else
-        {
-            $sid=$user->shop_id;
-            $categories=Category_model::where('parent_id',0)->pluck('name','id')->all();
-            return view('shopowner.products.create',compact('menu_active','categories','sid'));
-        }
-        
+        $categories=Category_model::where('parent_id',0)->pluck('name','id')->all();
+        return view('backEnd.products.create',compact('menu_active','categories'));
     }
 
     /**
@@ -91,21 +66,7 @@ class ProductsController extends Controller
                 $formInput['image']=$fileName;
             }
         }
-        $prod=Products_model::create($formInput);
-        $prod->shop_id=$request->shop_id;
-        $prod->save();
-        // if($request->shop_id==100)
-        // {
-            
-        //     $categories=Category_model::where('parent_id',0)->pluck('name','id')->all();
-        //     return view('backEnd.products.create',compact('menu_active','categories','sid'))->with('message','Add Products Successfully!');
-        // }
-        // else
-        // {
-            
-        //     $categories=Category_model::where('parent_id',0)->pluck('name','id')->all();
-        //     return view('shopowner.products.create',compact('menu_active','categories','sid'))->with('message','Add Products Successfully!');
-        // }
+        Products_model::create($formInput);
         return redirect()->route('product.create')->with('message','Add Products Successfully!');
     }
 
@@ -131,7 +92,6 @@ class ProductsController extends Controller
         $categories=Category_model::where('parent_id',0)->pluck('name','id')->all();
         $edit_product=Products_model::findOrFail($id);
         $edit_category=Category_model::findOrFail($edit_product->categories_id);
-        
         return view('backEnd.products.edit',compact('edit_product','menu_active','categories','edit_category'));
     }
 
