@@ -6,6 +6,8 @@ use App\ProductAtrr_model;
 use App\Products_model;
 use App\Review_model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ProductAtrrController extends Controller
 {
@@ -57,7 +59,16 @@ class ProductAtrrController extends Controller
         $menu_active =3;
         $attributes=ProductAtrr_model::where('products_id',$id)->get();
         $product=Products_model::findOrFail($id);
-        return view('backEnd.products.add_pro_atrr',compact('menu_active','product','attributes'));
+        $uid=Auth::user()->email;
+        $user=DB::table('shopowners')->where('email',$uid)->first();
+        if($user==null)
+        {
+            return view('backEnd.products.add_pro_atrr',compact('menu_active','product','attributes'));            
+        }
+        else
+        {
+            return view('shopowner.products.add_pro_atrr',compact('menu_active','product','attributes'));
+        }
     }
 
     /**

@@ -26,12 +26,12 @@ Route::get('/cart/update-quantity/{id}/{quantity}','CartController@updateQuantit
 Route::get('/contact','IndexController@contact');
 Route::get('/viewavailableshops','ApplicationController@viewavailableshops');
 Route::get('/apply_shop/{id}','ApplicationController@apply_shop');
-Route::resource('/application','ApplicationController');
-Route::get('/showapplications0','ApplicationController@showapplications0');
-Route::get('/showapplications1','ApplicationController@showapplications1');
-Route::get('/giveShop/{id}','ApplicationController@giveShop');
-Route::get('/application/givetime/{id}','ApplicationController@givetime');
-Route::get('/deleteApplication/{id}','ApplicationController@deleteApplication');
+// Route::resource('/application','ApplicationController');
+// Route::get('/showapplications0','ApplicationController@showapplications0');
+// Route::get('/showapplications1','ApplicationController@showapplications1');
+// Route::get('/deleteApplication/{id},ApplicationController@deleteApplication');
+// Route::get('/giveShop/{id}','ApplicationController@giveShop');
+// Route::get('/application/givetime/{id}','ApplicationController@givetime');
 Route::post('/prodreview','ProductAtrrController@addreview');
 /////////////////////////
 /// Apply Coupon Code
@@ -76,7 +76,7 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function (){
     Route::get('/check-pwd','AdminController@chkPassword');
     Route::post('/update-pwd','AdminController@updatAdminPwd');
     /// Category Area
-    Route::resource('/category','CategoryController');
+    //Route::resource('/category','CategoryController');
     Route::post('/category/store','CategoryController@store');
     Route::get('/category/create','CategoryController@create');
     Route::get('/category/index','CategoryController@index');
@@ -87,18 +87,18 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function (){
     /// Shop Area
     Route::resource('/shop','ShopController');
     Route::get('delete-shop/{id}','ShopController@destroy');
-    //Route::get('/check_shop_id','ShopController@checkCateName');
+    Route::get('/check_shop_id','ShopController@checkCateName');
     /// Products Area
-    // Route::resource('/product','ProductsController');
-    // Route::get('/product/index','ProductsController@show');
-    // Route::get('delete-product/{id}','ProductsController@destroy');
-    // Route::get('delete-image/{id}','ProductsController@deleteImage');
-    // /// Product Attribute
-    // Route::resource('/product_attr','ProductAtrrController');
-    // Route::get('delete-attribute/{id}','ProductAtrrController@deleteAttr');
-    // /// Product Images Gallery
-    // Route::resource('/image-gallery','ImagesController');
-    // Route::get('delete-imageGallery/{id}','ImagesController@destroy');
+    Route::resource('/product','ProductsController');
+    Route::get('/product/index','ProductsController@show');
+    Route::get('delete-product/{id}','ProductsController@destroy');
+    Route::get('delete-image/{id}','ProductsController@deleteImage');
+    /// Product Attribute
+    Route::resource('/product_attr','ProductAtrrController');
+    Route::get('delete-attribute/{id}','ProductAtrrController@deleteAttr');
+    /// Product Images Gallery
+    Route::resource('/image-gallery','ImagesController');
+    Route::get('delete-imageGallery/{id}','ImagesController@destroy');
     /// ///////// Coupons Area //////////
     Route::resource('/coupon','CouponController');
     Route::get('delete-coupon/{id}','CouponController@destroy');
@@ -107,6 +107,14 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function (){
     Route::get('/orders/show/{id}','OrdersController@show');
     Route::get('orders/assign/{id}','OrdersController@assign');
     Route::get('delete-order/{id}','OrdersController@destroy');
+
+    Route::get('/showapplications0','ApplicationController@showapplications0');
+    Route::get('/showapplications1','ApplicationController@showapplications1');
+    Route::get('/deleteApplication0/{id},ApplicationController@deleteApplication0');
+    Route::get('/deleteApplication1/{id},ApplicationController@deleteApplication1');
+    Route::get('/giveShop/{id}','ApplicationController@giveShop');
+    Route::get('/application/givetime/{id}','ApplicationController@givetime');
+    
 ///
 });
 
@@ -131,10 +139,13 @@ Route::group(['prefix'=>'shopowner','middleware'=>['auth','Shopowner']],function
     Route::post('/category/update','CategoryController@supdate');
 
     /// Products Area
-    Route::resource('/product','ProductsController');
-    Route::get('/product/index','ProductsController@show');
-    Route::get('delete-product/{id}','ProductsController@destroy');
-    Route::get('delete-image/{id}','ProductsController@deleteImage');
+
+    Route::resource('/SP','SPcontroller');
+    
+    //Route::resource('/product','ProductsController');
+    // Route::get('/product/show','ProductsController@show');
+    Route::get('delete-product/{id}','SPcontroller@destroy');
+    Route::get('delete-image/{id}','SPcontroller@deleteImage');
     /// Product Attribute
     Route::resource('/product_attr','ProductAtrrController');
     Route::get('delete-attribute/{id}','ProductAtrrController@deleteAttr');

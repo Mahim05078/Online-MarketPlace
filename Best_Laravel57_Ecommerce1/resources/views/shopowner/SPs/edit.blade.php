@@ -1,7 +1,7 @@
 @extends('shopowner.layouts.master')
 @section('title','Add Products Page')
 @section('content')
-    <div id="breadcrumb"> <a href="{{url('/shopowner')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('product.index')}}">Products</a> <a href="#" class="current">Edit Product</a> </div>
+    <div id="breadcrumb"> <a href="{{url('/shopowner')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('SP.index')}}">Products</a> <a href="#" class="current">Edit Product</a> </div>
     <div class="container-fluid">
         @if(Session::has('message'))
             <div class="alert alert-success text-center" role="alert">
@@ -13,7 +13,7 @@
                 <h5>Add New Products</h5>
             </div>
             <div class="widget-content nopadding">
-                <form action="{{route('product.update',$edit_product->id)}}" method="post" class="form-horizontal" enctype="multipart/form-data">
+                <form action="{{route('SP.update',$edit_product->id)}}" method="post" class="form-horizontal" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                     {{method_field("PUT")}}
                     <div class="control-group">

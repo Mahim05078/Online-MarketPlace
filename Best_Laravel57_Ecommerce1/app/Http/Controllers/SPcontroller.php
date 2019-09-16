@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProductsController extends Controller
+class SPcontroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,16 +23,10 @@ class ProductsController extends Controller
         $i=0;
         $uid=Auth::user()->email;
         $user=DB::table('shopowners')->where('email',$uid)->first();
-        if($user==null)
-        {
-            $products=Products_model::orderBy('created_at','desc')->get();
-            return view('backEnd.products.index',compact('menu_active','products','i'));
-        }
-        else
-        {
-            $products=Products_model::orderBy('created_at','desc')->get();
-            return view('shopowner.products.index',compact('menu_active','products','i'));
-        }
+        
+        $products=Products_model::orderBy('created_at','desc')->get();
+        return view('shopowner.SPs.index',compact('menu_active','products','i'));
+        
     }
 
     /**
@@ -45,18 +39,11 @@ class ProductsController extends Controller
         $menu_active=3;
         $uid=Auth::user()->email;
         $user=DB::table('shopowners')->where('email',$uid)->first();
-        if($user==null)
-        {
-            $sid=100;
-            $categories=Category_model::where('parent_id',0)->pluck('name','id')->all();
-            return view('shopowner.products.create',compact('menu_active','categories','sid'));
-        }
-        else
-        {
-            $sid=$user->shop_id;
-            $categories=Category_model::where('parent_id',0)->pluck('name','id')->all();
-            return view('shopowner.products.create',compact('menu_active','categories','sid'));
-        }
+        
+        if($user!=null)$sid=$user->shop_id;
+        // else $sid=100;
+        $categories=Category_model::where('parent_id',0)->pluck('name','id')->all();
+        return view('shopowner.SPs.create',compact('menu_active','categories','sid'));
         
     }
 
@@ -94,19 +81,8 @@ class ProductsController extends Controller
         $prod=Products_model::create($formInput);
         $prod->shop_id=$request->shop_id;
         $prod->save();
-        // if($request->shop_id==100)
-        // {
-            
-        //     $categories=Category_model::where('parent_id',0)->pluck('name','id')->all();
-        //     return view('backEnd.products.create',compact('menu_active','categories','sid'))->with('message','Add Products Successfully!');
-        // }
-        // else
-        // {
-            
-        //     $categories=Category_model::where('parent_id',0)->pluck('name','id')->all();
-        //     return view('shopowner.products.create',compact('menu_active','categories','sid'))->with('message','Add Products Successfully!');
-        // }
-        return redirect()->route('product.create')->with('message','Add Products Successfully!');
+        
+        return redirect()->route('SP.create')->with('message','Add Products Successfully!');
     }
 
     /**
@@ -121,16 +97,10 @@ class ProductsController extends Controller
         $i=0;
         $uid=Auth::user()->email;
         $user=DB::table('shopowners')->where('email',$uid)->first();
-        if($user==null)
-        {
+        
             $products=Products_model::orderBy('created_at','desc')->get();
-            return view('shopowner.products.index',compact('menu_active','products','i'));
-        }
-        else
-        {
-            $products=Products_model::orderBy('created_at','desc')->get();
-            return view('shopowner.products.index',compact('menu_active','products','i'));
-        }
+            return view('shopowner.SPs.index',compact('menu_active','products','i'));
+        
     }
 
     /**
@@ -147,16 +117,10 @@ class ProductsController extends Controller
         $edit_category=Category_model::findOrFail($edit_product->categories_id);
         $uid=Auth::user()->email;
         $user=DB::table('shopowners')->where('email',$uid)->first();
-        if($user==null)
-        {
-        return view('backEnd.products.edit',compact('edit_product','menu_active','categories','edit_category'));
-        }
-        else
-        {
-        return view('shopowner.products.edit',compact('edit_product','menu_active','categories','edit_category'));           
-        }
+        
+        return view('shopowner.SPs.edit',compact('edit_product','menu_active','categories','edit_category'));           
+        
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -196,7 +160,8 @@ class ProductsController extends Controller
             $formInput['image']=$update_product['image'];
         }
         $update_product->update($formInput);
-        return redirect()->route('product.index')->with('message','Update Products Successfully!');
+        return redirect()->route('SP.index')->with('message','Update Products Successfully!');
+
     }
 
     /**
@@ -217,7 +182,7 @@ class ProductsController extends Controller
             unlink($image_small);
         }
 
-        return redirect()->route('product.index')->with('message','Delete Success!');
+        return redirect()->route('SP.index')->with('message','Delete Success!');
     }
     public function deleteImage($id){
         //Products_model::where(['id'=>$id])->update(['image'=>'']);
@@ -235,6 +200,4 @@ class ProductsController extends Controller
         }
         return back();
     }
-
-    
 }

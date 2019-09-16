@@ -105,7 +105,7 @@ class ApplicationController extends Controller
         'country'=>$application->country,
         'mobile'=>$application->mobile,
         'password'=>$string,
-        'shop_id'=>$shop->shopid
+        'shop_id'=>$shop->shopid,
         );  
 
         Mail::send(['text'=>'mail'], $shopowner, function($message) use ($shopowner){
@@ -116,6 +116,7 @@ class ApplicationController extends Controller
          });
 
          $shopowner['password']=Hash::make($string);
+         $shopowner['shop_id']=$shop->shopid;
          $spon=Shopowner_model::create($shopowner);
          DB::table('users')->insert(
             ['name'=>$application->name,
@@ -127,11 +128,12 @@ class ApplicationController extends Controller
         'admin'=>2
             ]
         );
-         $shop->shopownerid=$spon->id;
-         $shop->isrent=1;
-         $shop->rentdate= Carbon\Carbon::now()->toDateString();
-         $shop->expireddate = Carbon\Carbon::now()->addYears(1);
-         $shop->save();
+        $updatedshop=Shop_model::findOrFail($shop->id);
+         $updatedshop->shopownerid=$spon->id;
+         $updatedshop->isrent=1;
+         $updatedshop->rentdate= Carbon\Carbon::now()->toDateString();
+         $updatedshop->expireddate = Carbon\Carbon::now()->addYears(1);
+         $updatedshop->save();
          DB::table('applications')->where('id', $id)->delete();
 
         $menu_active=6;
@@ -139,12 +141,23 @@ class ApplicationController extends Controller
         return view('application.showapplications1',compact('applications','menu_active'));
     }
 
-    public function deleteApplication($id)
+    public function deleteApplication0($id)
     {
-        $i=0;
+        $menu_active=6;
+        
         DB::table('applications')->where('id', $id)->delete();
-        if($i==0)return view('application.showapplications0',compact('applications','menu_active'));
-        else return view('application.showapplications1',compact('applications','menu_active'));
+        
+        return view('application.showapplications0',compact('applications','menu_active'));
+       
+    }
+    public function deleteApplication1($id)
+    {
+        $menu_active=6;
+        
+        DB::table('applications')->where('id', $id)->delete();
+        
+        return view('application.showapplications1',compact('applications','menu_active'));
+       
     }
 
 }

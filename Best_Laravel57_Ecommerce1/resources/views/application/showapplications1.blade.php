@@ -39,9 +39,11 @@
                             <td style="text-align: center; vertical-align: center;">{{$application->city}} </td>
                             <td style="text-align: center; vertical-align: center;">{{$application->mobile}}</td>
                             <td style="text-align: center; vertical-align: center;">
-                            <a href="{{url('/giveShop',$application->id)}}" class="btn btn-primary btn-mini">Assign Shop</a>
-                            <a href="{{url('/deleteApplication',$application->id,1)}}" class="btn btn-danger btn-mini deleteRecord">Ignore</a>
-                            </td>
+                            <a href="{{url('/admin/giveShop',$application->id)}}" class="btn btn-primary btn-mini">Assign Shop</a>
+                            {{-- <a href="{{url('/admin/deleteApplication/id='.$application->id.'?i='.'1')}}" class="btn btn-primary btn-mini">Ignore</a> --}}
+                            <a href="javascript:" rel="{{$application->id}}" rel1="{{url('/deleteApplication1/'.$application->id)}}" class="btn btn-danger btn-mini deleteRecord">Delete</a>    
+                                
+                        </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -79,7 +81,7 @@
                 buttonsStyling:false,
                 reverseButtons:true
             },function () {
-                window.location.href="/admin/"+deleteFunction+"/"+id;
+                window.location.href=deleteFunction;
             });
         });
     </script>

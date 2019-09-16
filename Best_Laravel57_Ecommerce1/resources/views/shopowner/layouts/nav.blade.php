@@ -12,8 +12,8 @@
         </li>
         <li class="submenu {{$menu_active==3? ' active':''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Products</span></a>
             <ul>
-                <li><a href="{{url('/shopowner/product/create')}}">Add New Products</a></li>
-                <li><a href="{{route('product.index')}}">List Products</a></li>
+                <li><a href="{{route('SP.create')}}">Add New Products</a></li>
+                <li><a href="{{route('SP.index')}}">List Products</a></li>
             </ul>
         </li>
         {{-- <li class="submenu {{$menu_active==4? ' active':''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Coupons</span></a>

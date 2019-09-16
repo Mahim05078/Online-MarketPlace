@@ -1,7 +1,7 @@
 @extends('shopowner.layouts.master')
 @section('title','List Products')
 @section('content')
-    <div id="breadcrumb"> <a href="{{url('/shopowner')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('product.index')}}" class="current">Products</a></div>
+    <div id="breadcrumb"> <a href="{{url('/shopowner')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('SP.index')}}" class="current">Products</a></div>
     <div class="container-fluid">
         @if(Session::has('message'))
             <div class="alert alert-success text-center" role="alert">
@@ -43,7 +43,7 @@
                             <td style="vertical-align: middle;text-align: center;"><a href="{{route('product_attr.show',$product->id)}}" class="btn btn-success btn-mini">Add Attr</a></td>
                             <td style="text-align: center; vertical-align: middle;">
                                 <a href="#myModal{{$product->id}}" data-toggle="modal" class="btn btn-info btn-mini">View</a>
-                                <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                <a href="{{route('SP.edit',$product->id)}}" class="btn btn-primary btn-mini">Edit</a>
                                 <a href="javascript:" rel="{{$product->id}}" rel1="delete-product" class="btn btn-danger btn-mini deleteRecord">Delete</a>
                             </td>
                         </tr>

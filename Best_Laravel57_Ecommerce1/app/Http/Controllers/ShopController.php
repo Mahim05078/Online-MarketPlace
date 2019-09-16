@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Shop_model;
+use App\Shopowner_model;
+use App\User;
 use foo\bar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
@@ -124,6 +127,10 @@ class ShopController extends Controller
     public function destroy($id)
     {
         $delete=Shop_model::findOrFail($id);
+        $soid=$delete->shopownerid;
+        $owner=DB::table('shopowners')->where('shopownerid',$soid)->first();
+        User::where('email',$owner->email)->delete();
+        Shopowner_model::where('shopownerid',$soid)->delete(); 
         $delete->shopownerid=null;
         $delete->bookedstatus=0;
         $delete->isrent=0;

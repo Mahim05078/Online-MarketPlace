@@ -42,12 +42,13 @@
                             
                             
                                 <td style="text-align: center; vertical-align: middle;">
-                                <a href="{{url('/application/givetime',$application->id)}}" class="btn btn-primary btn-mini">Give Appointment</a>
-                                <a href="{{url('/deleteApplication',$application->id,1)}}" class="btn btn-danger btn-mini deleteRecord">Ignore</a>
+                                <a href="{{url('/admin/application/givetime',$application->id)}}" class="btn btn-primary btn-mini">Give Appointment</a>
+                                <a href="javascript:" rel="{{$application->id}}" rel1="{{url('/deleteApplication0/'.$application->id)}}" class="btn btn-danger btn-mini deleteRecord">Delete</a>
+                                
+                                {{-- <a href="{{url('/admin/deleteApplication/'.$application->id.'/'.'0')}}" class="btn btn-primary btn-mini">Ignore</a> --}}
+                                
                             </td>
                            
-                            
-                            
                         </tr>
                     @endforeach
                     </tbody>
@@ -85,7 +86,7 @@
                 buttonsStyling:false,
                 reverseButtons:true
             },function () {
-                window.location.href="/admin/"+deleteFunction+"/"+id;
+                window.location.href=deleteFunction;
             });
         });
     </script>

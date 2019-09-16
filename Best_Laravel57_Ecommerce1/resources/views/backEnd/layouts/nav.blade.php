@@ -30,8 +30,8 @@
         </li>
         <li class="submenu {{$menu_active==6? ' active':''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Applications</span></a>
             <ul>
-                <li><a href="{{url('/showapplications0')}}">Show Applications</a></li>
-                <li><a href="{{url('/showapplications1')}}">Approve & Give Shop</a></li>
+                <li><a href="{{url('/admin/showapplications0')}}">Show Applications</a></li>
+                <li><a href="{{url('/admin/showapplications1')}}">Approve & Give Shop</a></li>
             </ul>
         </li>
         <li class="submenu {{$menu_active==7? ' active':''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Orders</span></a>

@@ -6,6 +6,8 @@ use App\ImageGallery_model;
 use App\Products_model;
 use Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ImagesController extends Controller
 {
@@ -70,7 +72,16 @@ class ImagesController extends Controller
         $menu_active =3;
         $product=Products_model::findOrFail($id);
         $imageGalleries=ImageGallery_model::where('products_id',$id)->get();
-        return view('backEnd.products.add_images_gallery',compact('menu_active','product','imageGalleries'));
+        $uid=Auth::user()->email;
+        $user=DB::table('shopowners')->where('email',$uid)->first();
+        if($user==null)
+        {
+            return view('backEnd.products.add_images_gallery',compact('menu_active','product','imageGalleries'));
+        }
+        else
+        {
+            return view('shopowner.products.add_images_gallery',compact('menu_active','product','imageGalleries'));
+        }
     }
 
     /**
