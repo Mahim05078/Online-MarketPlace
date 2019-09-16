@@ -76,9 +76,14 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function (){
     Route::get('/check-pwd','AdminController@chkPassword');
     Route::post('/update-pwd','AdminController@updatAdminPwd');
     /// Category Area
-    Route::resource('/category','CategoryController');
+    // Route::resource('/category','CategoryController');
+    Route::post('/category/store','CategoryController@store');
+    Route::get('/category/create','CategoryController@create');
+    Route::get('/category/index','CategoryController@index');
     Route::get('delete-category/{id}','CategoryController@destroy');
     Route::get('/check_category_name','CategoryController@checkCateName');
+    Route::post('/category/update','CategoryController@update');
+    Route::get('/category/edit/{id}','CategoryController@edit');
     /// Shop Area
     Route::resource('/shop','ShopController');
     Route::get('delete-shop/{id}','ShopController@destroy');
@@ -113,8 +118,20 @@ Route::group(['prefix'=>'shopowner','middleware'=>['auth','Shopowner']],function
     Route::get('/settings', 'ShopownerController@settings');
     Route::get('/check-pwd','ShopownerController@chkPassword');
     Route::post('/update-pwd','ShopownerController@updatSOPwd');
-
-
+    /// Category Area
+    // Route::resource('/category','CategoryController');
+    Route::post('/category/store','CategoryController@store');
+    Route::get('/category/create','CategoryController@create');
+    Route::get('/category/index','CategoryController@index');
+    
+    Route::get('/category/edit/{id}','CategoryController@edit');
+    Route::get('delete-category/{id}','CategoryController@destroy');
+    Route::get('/check_category_name','CategoryController@checkCateName');
+    Route::post('/category/update','CategoryController@update');
+    /// Products Area
+    // Route::resource('/product','ProductsController');
+    Route::get('shopowner/delete-product/{id}','ProductsController@destroy');
+    Route::get('shopowner/delete-image/{id}','ProductsController@deleteImage');
 });
 
 

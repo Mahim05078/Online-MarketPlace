@@ -1,7 +1,7 @@
-@extends('backEnd.layouts.master')
+@extends('shopowner.layouts.master')
 @section('title','List Categories')
 @section('content')
-    <div id="breadcrumb"> <a href="{{url('/admin')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('category.index')}}" class="current">Categories</a></div>
+    <div id="breadcrumb"> <a href="{{url('/shopowner')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{url('/shopowner/category/index')}}" class="current">Categories</a></div>
     <div class="container-fluid">
         @if(Session::has('message'))
             <div class="alert alert-success text-center" role="alert">
@@ -38,7 +38,7 @@
                                 <td style="text-align: center;">{{$category->created_at->diffForHumans()}}</td>
                                 <td style="text-align: center;">{{($category->status==0)?' Disabled':'Enable'}}</td>
                                 <td style="text-align: center;">
-                                    <a href="{{route('category.edit',$category->id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                    <a href="{{url('/shopowner/category/edit',$category->id)}}" class="btn btn-primary btn-mini">Edit</a>
                                     <a href="javascript:" rel="{{$category->id}}" rel1="delete-category" class="btn btn-danger btn-mini deleteRecord">Delete</a>
                                 </td>
                             </tr>
@@ -77,7 +77,7 @@
                buttonsStyling:false,
                reverseButtons:true
            },function () {
-              window.location.href="/admin/"+deleteFunction+"/"+id;
+              window.location.href="/shopowner/"+deleteFunction+"/"+id;
            });
         });
     </script>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Shop_model;
 use foo\bar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -28,6 +29,7 @@ class ShopController extends Controller
     public function create()
     {
         $menu_active=5;
+        
         return view('backEnd.shop.create',compact('menu_active'));
     }
 
@@ -104,6 +106,12 @@ class ShopController extends Controller
             $input_data['isrent']=0;
         }
         $update_shops->update($input_data);
+        if($update_shops->isrent==0)
+        {
+            $update_shops->rentdate=null;
+            $update_shops->expireddate=null;
+        }
+        $update_shops->save();
         return redirect()->route('shop.index')->with('message','Updated Success!');
     }
 
@@ -116,7 +124,11 @@ class ShopController extends Controller
     public function destroy($id)
     {
         $delete=Shop_model::findOrFail($id);
-        $delete->delete();
-        return redirect()->route('shop.index')->with('message','Delete Success!');
+        $delete->shopownerid=null;
+        $delete->bookedstatus=0;
+        $delete->isrent=0;
+        $delete->save();
+        //$delete->delete();
+        return redirect()->route('shop.index')->with('message','Remove shopowner Success!');
     }
 }

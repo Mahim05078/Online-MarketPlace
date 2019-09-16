@@ -32,6 +32,13 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <label for="shopownerid" class="control-label">shopownerid</label>
+                        <div class="controls{{$errors->has('shopownerid')?' has-error':''}}">
+                            <input type="number" name="shopownerid" id="shopownerid" class="input" value="{{$edit_shop->shopownerid}}" title=""  style="width: 400px;">
+                            <span class="text-danger">{{$errors->first('shopownerid')}}</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
                         <label for="price" class="control-label">Shop price </label>
                         <div class="controls{{$errors->has('price')?' has-error':''}}">
                             <input type="number" name="price" id="shopid" class="form-control" value="{{$edit_shop->price}}"

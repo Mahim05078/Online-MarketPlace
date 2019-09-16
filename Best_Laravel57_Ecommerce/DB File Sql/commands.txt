@@ -775,7 +775,7 @@ CREATE TABLE IF NOT EXISTS `applications` (
 
 DROP TABLE IF EXISTS `shopowners`;
 CREATE TABLE IF NOT EXISTS `shopowners` (
-  `shopownerid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `shopownerid` int(10) UNSIGNED NOT NULL ,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,

@@ -1,8 +1,13 @@
 @extends('backEnd.layouts.master')
 @section('title','Add Category')
 @section('content')
-    <div id="breadcrumb"> <a href="{{url('/admin')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('category.index')}}">Categories</a> <a href="{{route('category.create')}}" class="current">Add New Category</a> </div>
+    <div id="breadcrumb"> <a href="{{url('/admin')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{url('/admin/category/index')}}">Categories</a> <a href="{{url('/admin/category/create')}}" class="current">Add New Category</a> </div>
     <div class="container-fluid">
+            @if(Session::has('message'))
+            <div class="alert alert-success text-center" role="alert">
+                <strong>Well done!</strong> {{Session::get('message')}}
+            </div>
+            @endif
         <div class="row-fluid">
             <div class="span12">
             <div class="widget-box">
@@ -10,7 +15,7 @@
                     <h5>Add New Category</h5>
                 </div>
                 <div class="widget-content nopadding">
-                    <form class="form-horizontal" method="post" action="{{route('category.store')}}" name="basic_validate" id="basic_validate" novalidate="novalidate">
+                    <form class="form-horizontal" method="post" action="{{url('/admin/category/store')}}" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                         <div class="control-group{{$errors->has('name')?' has-error':''}}">
                             <label class="control-label">Category Name :</label>

@@ -34,4 +34,8 @@ class User extends Authenticatable
     {
         return ($this->admin==2);
     }
+    public function getemail()
+    {
+        return $this->email;
+    }
 }

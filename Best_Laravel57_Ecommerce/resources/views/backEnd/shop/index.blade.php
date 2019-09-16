@@ -19,6 +19,7 @@
                         <th>ID</th>
                         <th>Shopid</th>
                         <th>Shop_name</th>
+                        <th>price</th>
                         <th>isrent</th>
                         <th>bookedstatus</th>
                         <th>Shopownerid</th>
@@ -42,8 +43,9 @@
                             <td style="text-align: center; vertical-align: middle;">
                                 {{$shop->bookedstatus==1?'Booked':'Not Booked'}}
                             </td>
-
-                            <td style="text-align: center; vertical-align: middle;">{{$shop->shopowenrid}} </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                {{$shop->shopownerid==null?'':$shop->shopownerid}}
+                            </td>
                             <td style="text-align: center; vertical-align: middle;">{{$shop->rentdate}}</td>
                             <td style="text-align: center; vertical-align: middle;">{{$shop->expireddate}}</td>
                             <td style="text-align: center; vertical-align: middle;">

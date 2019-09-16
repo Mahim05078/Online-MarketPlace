@@ -69,7 +69,7 @@ class ApplicationController extends Controller
     {
         $application=Application_model::findOrFail($id);
         $data = array('name'=>"From Big Mart: ", 'email' => $application->email,
-    'password'=>"--",'shopid'=>"--",'mobile'=>$application->mobile);
+    'password'=>"--",'shop_id'=>"--",'mobile'=>$application->mobile);
         Mail::send(['text'=>'mail'], $data, function($message) use ($data){
             $message->to($data['email'], 'Tutorials Point')->subject
                ('Appointment:See attached file.');
@@ -105,7 +105,7 @@ class ApplicationController extends Controller
         'country'=>$application->country,
         'mobile'=>$application->mobile,
         'password'=>$string,
-        'shopid'=>$shop->shopid
+        'shop_id'=>$shop->shopid
         );  
 
         Mail::send(['text'=>'mail'], $shopowner, function($message) use ($shopowner){

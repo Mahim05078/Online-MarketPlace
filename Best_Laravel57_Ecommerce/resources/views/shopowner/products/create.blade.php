@@ -1,7 +1,7 @@
-@extends('backEnd.layouts.master')
+@extends('shopowner.layouts.master')
 @section('title','Add Products Page')
 @section('content')
-    <div id="breadcrumb"> <a href="{{url('/admin')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('product.index')}}">Products</a> <a href="{{route('product.create')}}" class="current">Add New Product</a> </div>
+    <div id="breadcrumb"> <a href="{{url('/shopowner')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('product.index')}}">Products</a> <a href="{{route('product.create')}}" class="current">Add New Product</a> </div>
     <div class="container-fluid">
         @if(Session::has('message'))
             <div class="alert alert-success text-center" role="alert">
@@ -43,7 +43,13 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label for="p_code" class="control-label">Code</label>
+                        <div class="controls{{$errors->has('shop_id')?' has-error':''}}">
+                            <input type="hidden" name="shop_id" id="shop_id" class="form-control" value="{{$sid}}" >
+                            <span class="text-danger">{{$errors->first('shop_id')}}</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="p_code" class="control-label">{{$sid}}</label>
                         <div class="controls{{$errors->has('p_code')?' has-error':''}}">
                             <input type="text" name="p_code" id="p_code" class="form-control" value="{{old('p_code')}}" title="" required="required" style="width: 400px;">
                             <span class="text-danger">{{$errors->first('p_code')}}</span>
