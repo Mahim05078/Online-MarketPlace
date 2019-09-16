@@ -31,8 +31,9 @@ class ProductsController extends Controller
     public function create()
     {
         $menu_active=3;
+        $sid=100;
         $categories=Category_model::where('parent_id',0)->pluck('name','id')->all();
-        return view('backEnd.products.create',compact('menu_active','categories'));
+        return view('backEnd.products.create',compact('menu_active','categories','sid'));
     }
 
     /**
