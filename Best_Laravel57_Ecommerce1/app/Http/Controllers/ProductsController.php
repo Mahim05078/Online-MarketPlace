@@ -115,8 +115,22 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
+        $menu_active=3;
+        $i=0;
+        $uid=Auth::user()->email;
+        $user=DB::table('shopowners')->where('email',$uid)->first();
+        if($user==null)
+        {
+            $products=Products_model::orderBy('created_at','desc')->get();
+            return view('shopowner.products.index',compact('menu_active','products','i'));
+        }
+        else
+        {
+            $products=Products_model::orderBy('created_at','desc')->get();
+            return view('shopowner.products.index',compact('menu_active','products','i'));
+        }
     }
 
     /**
@@ -131,8 +145,17 @@ class ProductsController extends Controller
         $categories=Category_model::where('parent_id',0)->pluck('name','id')->all();
         $edit_product=Products_model::findOrFail($id);
         $edit_category=Category_model::findOrFail($edit_product->categories_id);
-        
+        $uid=Auth::user()->email;
+        $user=DB::table('shopowners')->where('email',$uid)->first();
+        if($user==null)
+        {
         return view('backEnd.products.edit',compact('edit_product','menu_active','categories','edit_category'));
+           
+        }
+        else
+        {
+        return view('shopowner.products.edit',compact('edit_product','menu_active','categories','edit_category'));           
+        }
     }
 
     /**
@@ -193,6 +216,7 @@ class ProductsController extends Controller
             unlink($image_medium);
             unlink($image_small);
         }
+
         return redirect()->route('product.index')->with('message','Delete Success!');
     }
     public function deleteImage($id){

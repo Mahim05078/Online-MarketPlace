@@ -104,9 +104,22 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        echo $id;
+        $uid=Auth::user()->email;
+        $user=DB::table('shopowners')->where('email',$uid)->first();
+        if($user==null)
+        {
+            $menu_active=0;
+            $categories=Category_model::all();
+            return view('backEnd.category.index',compact('menu_active','categories'));
+        }
+        else
+        {
+            $menu_active=0;
+            $categories=Category_model::all();
+            return view('shopowner.category.index',compact('menu_active','categories'));
+        }
     }
 
     /**
@@ -142,20 +155,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
-        $id=$request->id;
+        $cid=$request->id;
         $uid=Auth::user()->email;
         $user=DB::table('shopowners')->where('email',$uid)->first();
-        if($user==null)
-        {
-            $sid=100;
-        }
-        else
-        {
-            $sid=$user->shop_id;
-        }
-        $update_categories=Category_model::findOrFail($id);
+        
+        $update_categories=Category_model::findOrFail($cid);
         $this->validate($request,[
             'name'=>'required|max:255|unique:categories,name,'.$update_categories->id,
             'url'=>'required',
@@ -180,6 +186,44 @@ class CategoryController extends Controller
         }
     }
 
+
+
+
+
+    public function supdate(Request $request)
+    {
+        $cid=$request->id;
+        $uid=Auth::user()->email;
+        $user=DB::table('shopowners')->where('email',$uid)->first();
+        
+        $update_categories=Category_model::findOrFail($cid);
+        $this->validate($request,[
+            'name'=>'required|max:255|unique:categories,name,'.$update_categories->id,
+            'url'=>'required',
+        ]);
+        //dd($request->all());die();
+        $input_data=$request->all();
+        if(empty($input_data['status'])){
+            $input_data['status']=0;
+        }
+        $update_categories->update($input_data);
+        if($user==null)
+        {
+            
+        }
+        else
+        {
+            $menu_active=0;
+            $categories=Category_model::all();
+            return view('shopowner.category.index',compact('menu_active','categories'));
+        }
+    }
+
+
+
+
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -192,7 +236,17 @@ class CategoryController extends Controller
         $delete->delete();
         $menu_active=0;
         $categories=Category_model::all();
-        return view('shopowner.category.index',compact('menu_active','categories'))->with('message','Delete Success!');
+        $uid=Auth::user()->email;
+        $user=DB::table('shopowners')->where('email',$uid)->first();
+        if($user==null)
+        {
+            return view('backEnd.category.index',compact('menu_active','categories'))->with('message','Delete Success!');
+        }
+        else
+        {
+            return view('shopowner.category.index',compact('menu_active','categories'))->with('message','Delete Success!');
+        }
+        
         // return redirect()->route('category.index')->with('message','Delete Success!');
     }
 }
