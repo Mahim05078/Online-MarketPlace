@@ -8,8 +8,7 @@ use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
-class ImagesController extends Controller
+class SPImgController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -75,8 +74,8 @@ class ImagesController extends Controller
         $uid=Auth::user()->email;
         $user=DB::table('shopowners')->where('email',$uid)->first();
         
-        return view('backEnd.products.add_images_gallery',compact('menu_active','product','imageGalleries'));
-       
+        return view('shopowner.SPs.add_images_gallery',compact('menu_active','product','imageGalleries'));
+        
     }
 
     /**

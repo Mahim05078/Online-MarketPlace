@@ -40,7 +40,7 @@ class SPcontroller extends Controller
         $uid=Auth::user()->email;
         $user=DB::table('shopowners')->where('email',$uid)->first();
         
-        if($user!=null)$sid=$user->shop_id;
+        if($user!=null)$sid=$user->shopid;
         // else $sid=100;
         $categories=Category_model::where('parent_id',0)->pluck('name','id')->all();
         return view('shopowner.SPs.create',compact('menu_active','categories','sid'));

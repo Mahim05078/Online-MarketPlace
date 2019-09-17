@@ -1,7 +1,7 @@
 @extends('shopowner.layouts.master')
 @section('title','Add Attribute')
 @section('content')
-    <div id="breadcrumb"> <a href="{{url('/shopowner')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('product.index')}}">Products</a> <a href="#" class="current">Add Attribute</a> </div>
+    <div id="breadcrumb"> <a href="{{url('/shopowner')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('SP.index')}}">Products</a> <a href="#" class="current">Add Attribute</a> </div>
     <div class="container-fluid">
         @if(Session::has('message'))
             <div class="alert alert-success text-center" role="alert">
@@ -24,7 +24,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <form action="{{route('product_attr.store')}}" method="post" role="form">
+                                    <form action="{{route('product_attrb.store')}}" method="post" role="form">
                                         <legend>Add Attribute</legend>
                                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                                         <div class="form-group">
@@ -48,7 +48,7 @@
                             <h5>List Products Attribute</h5>
                         </div>
                         <div class="widget-content nopadding">
-                            <form action="{{route('product_attr.update',$product->id)}}" method="post" role="form">
+                            <form action="{{route('product_attrb.update',$product->id)}}" method="post" role="form">
                                 {{method_field("PUT")}}
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <table class="table table-striped table-bordered">

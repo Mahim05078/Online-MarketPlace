@@ -21,8 +21,19 @@ class IndexController extends Controller
     }
     public function listByCat($id){
         $list_product=Products_model::where('categories_id',$id)->get();
+
+        $sub_categories=Category_model::where('parent_id',$id)->get();
+        $entries=Products_model::where('categories_id','0')->get();
+       foreach ($sub_categories as $i){
+            $newentry = Products_model::where('categories_id',$i->id)->get();
+            $entries = $entries->merge($newentry);
+        }
+                  
+        
+       // $p_list_product=Products_model::where('parent_id',$id)->get();
+
         $byCate=Category_model::select('name')->where('id',$id)->first();
-        return view('frontEnd.products',compact('list_product','byCate'));
+        return view('frontEnd.products',compact('list_product','byCate','entries'));
     }
     public function detialpro($id){
         $detail_product=Products_model::findOrFail($id);

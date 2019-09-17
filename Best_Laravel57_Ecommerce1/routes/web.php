@@ -26,7 +26,7 @@ Route::get('/cart/update-quantity/{id}/{quantity}','CartController@updateQuantit
 Route::get('/contact','IndexController@contact');
 Route::get('/viewavailableshops','ApplicationController@viewavailableshops');
 Route::get('/apply_shop/{id}','ApplicationController@apply_shop');
-// Route::resource('/application','ApplicationController');
+Route::resource('/application','ApplicationController');
 // Route::get('/showapplications0','ApplicationController@showapplications0');
 // Route::get('/showapplications1','ApplicationController@showapplications1');
 // Route::get('/deleteApplication/{id},ApplicationController@deleteApplication');
@@ -147,11 +147,11 @@ Route::group(['prefix'=>'shopowner','middleware'=>['auth','Shopowner']],function
     Route::get('delete-product/{id}','SPcontroller@destroy');
     Route::get('delete-image/{id}','SPcontroller@deleteImage');
     /// Product Attribute
-    Route::resource('/product_attr','ProductAtrrController');
-    Route::get('delete-attribute/{id}','ProductAtrrController@deleteAttr');
+    Route::resource('/product_attrb','SPAttController');
+    Route::get('delete-attribute/{id}','SPAttController@deleteAttr');
     /// Product Images Gallery
-    Route::resource('/image-gallery','ImagesController');
-    Route::get('delete-imageGallery/{id}','ImagesController@destroy');
+    Route::resource('/simage-gallery','SPImgController');
+    Route::get('delete-imageGallery/{id}','SPImgController@destroy');
 });
 
 

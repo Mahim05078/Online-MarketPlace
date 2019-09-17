@@ -1,7 +1,7 @@
 @extends('shopowner.layouts.master')
 @section('title','Add Images Gallery')
 @section('content')
-    <div id="breadcrumb"> <a href="{{url('/shopowner')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('product.index')}}">Products</a> <a href="#" class="current">Add Images Gallery</a> </div>
+    <div id="breadcrumb"> <a href="{{url('/shopowner')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('SP.index')}}">Products</a> <a href="#" class="current">Add Images Gallery</a> </div>
     <div class="container-fluid">
         @if(Session::has('message'))
             <div class="alert alert-success text-center" role="alert">
@@ -24,7 +24,7 @@
                                 </div>
                             </li>
                             <li>
-                                <form action="{{route('image-gallery.store')}}" method="post" role="form" enctype="multipart/form-data">
+                                <form action="{{route('simage-gallery.store')}}" method="post" role="form" enctype="multipart/form-data">
                                     <legend>Can Add Multi Images</legend>
                                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                                     <div class="form-group">

@@ -69,7 +69,7 @@ class ApplicationController extends Controller
     {
         $application=Application_model::findOrFail($id);
         $data = array('name'=>"From Big Mart: ", 'email' => $application->email,
-    'password'=>"--",'shop_id'=>"--",'mobile'=>$application->mobile);
+    'password'=>"--",'shopid'=>"--",'mobile'=>$application->mobile);
         Mail::send(['text'=>'mail'], $data, function($message) use ($data){
             $message->to($data['email'], 'Tutorials Point')->subject
                ('Appointment:See attached file.');
@@ -96,7 +96,7 @@ class ApplicationController extends Controller
         
         $application=Application_model::findOrFail($id);
 
-        $shop=Shop_model::select('*')->where ('id',$application->shopid)->first();
+        $shop=Shop_model::where('id',$application->shopid)->first();
  
         $shopowner = array('name'=>$application->name,
         'email'=>$application->email,
@@ -105,7 +105,7 @@ class ApplicationController extends Controller
         'country'=>$application->country,
         'mobile'=>$application->mobile,
         'password'=>$string,
-        'shop_id'=>$shop->shopid,
+        'shopid'=>$shop->shopid,
         );  
 
         Mail::send(['text'=>'mail'], $shopowner, function($message) use ($shopowner){
@@ -116,8 +116,9 @@ class ApplicationController extends Controller
          });
 
          $shopowner['password']=Hash::make($string);
-         $shopowner['shop_id']=$shop->shopid;
+         $shopowner['shopid']=$shop->id;
          $spon=Shopowner_model::create($shopowner);
+         
          DB::table('users')->insert(
             ['name'=>$application->name,
         'email'=>$application->email,
@@ -128,8 +129,8 @@ class ApplicationController extends Controller
         'admin'=>2
             ]
         );
-        $updatedshop=Shop_model::findOrFail($shop->id);
-         $updatedshop->shopownerid=$spon->id;
+         $updatedshop=Shop_model::findOrFail($shop->id);
+         $updatedshop->shopownerid=$spon->shopownerid;
          $updatedshop->isrent=1;
          $updatedshop->rentdate= Carbon\Carbon::now()->toDateString();
          $updatedshop->expireddate = Carbon\Carbon::now()->addYears(1);
@@ -137,7 +138,8 @@ class ApplicationController extends Controller
          DB::table('applications')->where('id', $id)->delete();
 
         $menu_active=6;
-        $applications= Application_model::select('*')->where ('status',1)->get(); 
+        $applications= Application_model::select('*')->where ('status',1)->get();
+
         return view('application.showapplications1',compact('applications','menu_active'));
     }
 

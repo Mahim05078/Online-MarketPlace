@@ -2,7 +2,7 @@ Name: {{ $name }}
 email:{{ $email }}
 password:{{ $password }}
 mobile:{{ $mobile }}
-shopid:{{ $shop_id }}
+shopid:{{ $shopid }}
 
 
 Assignment is OK.
