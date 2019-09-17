@@ -34,8 +34,16 @@
                                 </div>
                                 <div class="choose">
                                     <ul class="nav nav-pills nav-justified">
-                                        <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                        <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                        {{-- <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li> --}}
+                                        <i class="fa fa-shopping-basket"></i>Shop : 
+                                        @if($product->shop_id==null)
+                                            <i class="fa fa-star"></i>AdminShop
+                                        @else
+                                        <?php
+                                        $shop=DB::table('shops')->where('id',$product->shop_id)->first();
+                                        ?>
+                                        <i class="fa fa-adjust"></i> {{$shop->shop_name}}
+                                        @endif
                                     </ul>
                                 </div>
                             </div>

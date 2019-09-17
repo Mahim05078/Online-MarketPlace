@@ -24,8 +24,8 @@ class SPcontroller extends Controller
         $i=0;
         $uid=Auth::user()->email;
         $user=DB::table('shopowners')->where('email',$uid)->first();
-        
-        $products=Products_model::orderBy('created_at','desc')->get();
+        $shopid=$user->shopid;
+        $products=Products_model::where('shop_id',$shopid)->orderBy('created_at','desc')->get();
         return view('shopowner.SPs.index',compact('menu_active','products','i'));
         
     }
@@ -174,7 +174,7 @@ class SPcontroller extends Controller
     public function destroy($id)
     {
         $delete=Products_model::findOrFail($id);
-        $allattr=ProductAtrr_model::where('products_id',$id)->delete();
+        DB::table('product_att')->where('products_id',$id)->delete();
 
         $image_large=public_path().'/products/large/'.$delete->image;
         $image_medium=public_path().'/products/medium/'.$delete->image;

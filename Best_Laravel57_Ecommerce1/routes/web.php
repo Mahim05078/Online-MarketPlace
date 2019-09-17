@@ -76,21 +76,20 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function (){
     Route::get('/check-pwd','AdminController@chkPassword');
     Route::post('/update-pwd','AdminController@updatAdminPwd');
     /// Category Area
-    //Route::resource('/category','CategoryController');
+    Route::resource('/category','CategoryController');
     Route::post('/category/store','CategoryController@store');
     Route::get('/category/create','CategoryController@create');
     Route::get('/category/index','CategoryController@index');
     Route::get('delete-category/{id}','CategoryController@destroy');
     Route::get('/check_category_name','CategoryController@checkCateName');
     Route::post('/category/update','CategoryController@update');
-    Route::get('/category/edit/{id}','CategoryController@edit');
+    
     /// Shop Area
     Route::resource('/shop','ShopController');
     Route::get('delete-shop/{id}','ShopController@destroy');
     Route::get('/check_shop_id','ShopController@checkCateName');
     /// Products Area
     Route::resource('/product','ProductsController');
-    Route::get('/product/index','ProductsController@show');
     Route::get('delete-product/{id}','ProductsController@destroy');
     Route::get('delete-image/{id}','ProductsController@deleteImage');
     /// Product Attribute
@@ -106,6 +105,7 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function (){
     Route::resource('/orders','OrdersController');
     Route::get('/orders/show/{id}','OrdersController@show');
     Route::get('orders/assign/{id}','OrdersController@assign');
+    Route::get('orders/complete/{id}','OrdersController@complete');
     Route::get('delete-order/{id}','OrdersController@destroy');
 
     Route::get('/showapplications0','ApplicationController@showapplications0');
@@ -133,7 +133,7 @@ Route::group(['prefix'=>'shopowner','middleware'=>['auth','Shopowner']],function
     Route::get('/check-pwd','ShopownerController@chkPassword');
     Route::post('/update-pwd','ShopownerController@updatSOPwd');
     /// Category Area
-    Route::resource('/category','CategoryController');
+    //Route::resource('/category','CategoryController');
     Route::get('/category/index','CategoryController@show');
     Route::post('/category/store','CategoryController@store');
     Route::get('/category/create','CategoryController@create');

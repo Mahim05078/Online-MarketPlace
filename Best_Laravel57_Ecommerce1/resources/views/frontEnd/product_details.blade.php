@@ -76,8 +76,19 @@
                                 @endif
                             </p>
                             <p><b>Condition:</b> New</p>
-                            <a href=""><img src="{{asset('frontEnd/images/product-details/share.png')}}"
-                                    class="share img-responsive" alt="" /></a>
+                            <div class="choose">
+                                <ul class="nav nav-pills nav-justified">
+                                    <i class="fa fa-shopping-basket"></i>Shop : 
+                                    @if($detail_product->shop_id==null)
+                                        <i class="fa fa-star"></i>AdminShop
+                                    @else
+                                    <?php
+                                    $shop=DB::table('shops')->where('id',$detail_product->shop_id)->first();
+                                    ?>
+                                    <i class="fa fa-adjust"></i> {{$shop->shop_name}}
+                                    @endif
+                                </ul>
+                            </div>
                         </div>
                         <!--/product-information-->
                     </form>
@@ -91,7 +102,7 @@
                 <div class="col-sm-12">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
-                        <li><a href="#companyprofile" data-toggle="tab">Company Profile</a></li>
+                        
                         <li><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
                     </ul>
                 </div>

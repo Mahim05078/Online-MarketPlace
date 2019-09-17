@@ -123,6 +123,21 @@ class OrdersController extends Controller
         
     }
 
+    public function complete($id)
+    {
+        $order=Orders_model::findOrFail($id);
+        $delman=Deliveryman_model::where('id',$order->deliveryman_id)->first();
+
+        $order->order_status = "completed";
+        
+        $delman->update([
+            'isavailable' => 0
+        ]);
+        $order->save();
+        return back()->with('message','Complete Order Now!');
+        
+    }
+
     public function destroy($id)
     {
         $delete_order=Orders_model::findOrFail($id);

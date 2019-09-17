@@ -45,7 +45,7 @@
                                     
                                     if(Auth::user()==null)
                                     {
-                                        $mail=' ';
+                                        $mail='nazmulhasnsakib@gmail.com';
                                     }
                                     else
                                     {

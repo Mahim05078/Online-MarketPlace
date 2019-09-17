@@ -95,7 +95,6 @@ class CategoryController extends Controller
             $categories=Category_model::all();
             return view('shopowner.category.index',compact('menu_active','categories'));
         }
-        
     }
 
     /**

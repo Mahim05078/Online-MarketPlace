@@ -61,14 +61,9 @@ class ProductAtrrController extends Controller
         $product=Products_model::findOrFail($id);
         $uid=Auth::user()->email;
         $user=DB::table('shopowners')->where('email',$uid)->first();
-        if($user==null)
-        {
-            return view('backEnd.products.add_pro_atrr',compact('menu_active','product','attributes'));            
-        }
-        else
-        {
-            return view('shopowner.products.add_pro_atrr',compact('menu_active','product','attributes'));
-        }
+       
+        return view('backEnd.products.add_pro_atrr',compact('menu_active','product','attributes'));            
+        
     }
 
     /**

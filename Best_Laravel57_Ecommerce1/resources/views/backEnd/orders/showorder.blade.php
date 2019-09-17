@@ -36,18 +36,23 @@
                         ?>
                         <tr class="gradeC">
 
-                                <td style="vertical-align: middle;">{{$order->users_id}}</td>
+                            <td style="vertical-align: middle;">{{$order->users_id}}</td>
                             <td style="vertical-align: middle;">{{$order->id}}</td>
                             <td style="text-align: center; vertical-align: middle;">{{$order->name}}</td>
                             <td style="text-align: center; vertical-align: middle;">{{$order->users_email}}</td>
                             <td style="text-align: center; vertical-align: middle;">{{$order->mobile}}</td>
                             <td style="text-align: center; vertical-align: middle;">{{$order->order_status}}</td>
                             <td style="text-align: center; vertical-align: middle;">{{$order->payment_method}}</td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                <a href="{{url('/admin/orders/assign',$order->id)}}" class="btn btn-primary btn-mini">Accept</a>
-                                
-                                
-                                
+                            
+
+                                @if($id==1)
+                                    <td style="text-align: center; vertical-align: middle;">
+                                    <a href="{{url('/admin/orders/assign',$order->id)}}" class="btn btn-primary btn-mini">Accept</a>
+                                @elseif($id==2)
+                                    <td style="text-align: center; vertical-align: middle;">
+                                    <a href="{{url('/admin/orders/complete',$order->id)}}" class="btn btn-primary btn-mini">Complete</a>
+                                @endif
+
                                 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Show Products</button>
                                 <div class="modal fade" id="myModal" role="dialog">
                                         <div class="modal-dialog">
@@ -103,8 +108,7 @@
                                         </div>
                                       </div>
 
-
-                                <a href="javascript:" rel="{{$order->id}}" rel1="delete-order" class="btn btn-danger btn-mini deleteRecord">Delete</a>
+                                <a href="javascript:" rel="{{$order->id}}" rel1="delete-order" class="btn btn-danger btn-mini deleteRecord">Complete</a>
                             </td>
                         </tr>
                     @endforeach

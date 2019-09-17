@@ -38,7 +38,7 @@
                                 <td style="text-align: center;">{{$category->created_at->diffForHumans()}}</td>
                                 <td style="text-align: center;">{{($category->status==0)?' Disabled':'Enable'}}</td>
                                 <td style="text-align: center;">
-                                    <a href="{{url('/admin/category/edit',$category->id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                    <a href="{{route('category.edit',$category->id)}}" class="btn btn-primary btn-mini">Edit</a>
                                     <a href="javascript:" rel="{{$category->id}}" rel1="delete-category" class="btn btn-danger btn-mini deleteRecord">Delete</a>
                                 </td>
                             </tr>
