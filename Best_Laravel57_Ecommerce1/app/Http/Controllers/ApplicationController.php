@@ -162,4 +162,31 @@ class ApplicationController extends Controller
        
     }
 
+    public function showDeliveryMan()
+    {
+        $menu_active=8;
+        $delman=DB::table('deliveryman')->all();
+        return view('backEnd.showDeliveryMan',compact('delman','menu_active'));
+    }
+
+    public function addNewDM()
+    {
+        $menu_active=8;
+        DB::table('applications')->where('id', $id)->delete();
+        return view('backEnd.addNewDM',compact('menu_active'));
+    }
+
+    public function storeNewDM(Request $request)
+    {
+        $this->validate($request,[
+            'email'=>'required|max:255|unique:applications,email',
+            'mobile'=>'required',
+        ]);
+        $menu_active=8;
+        $data=$request->all();
+        $app=Deliveryman_model::create($data);
+        return view('backEnd.addNewDM',compact('menu_active'));
+    }
+    
+
 }

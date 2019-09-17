@@ -115,7 +115,12 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function (){
     Route::get('/giveShop/{id}','ApplicationController@giveShop');
     Route::get('/application/givetime/{id}','ApplicationController@givetime');
     
-///
+    Route::get('/addNewDM','ApplicationController@addNewDM');
+    Route::get('/showDeliveryMan','ApplicationController@showDeliveryMan');
+    Route::post('/storeNewDM','ApplicationController@storeNewDM');
+    
+    
+    ///
 });
 
 

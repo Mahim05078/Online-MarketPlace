@@ -41,6 +41,12 @@
                 <li><a href="{{url('/admin/orders/show',3)}}">Show completed Orders</a></li>
             </ul>
         </li>
+        <li class="submenu {{$menu_active==8? ' active':''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Delivery Man</span></a>
+            <ul>
+                <li><a href="{{url('/admin/addNewDM')}}">Add New Delivery Man</a></li>
+                <li><a href="{{url('/admin/showDeliveryMan')}}">List Delivery Man</a></li>
+            </ul>
+        </li>
     </ul>
 </div>
 <!--sidebar-menu-->

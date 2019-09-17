@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category_model;
 use App\Products_model;
+use App\ProductAtrr_model;
 use Illuminate\Support\Facades\Storage;
 use Image;
 use Illuminate\Support\Facades\DB;
@@ -173,6 +174,8 @@ class SPcontroller extends Controller
     public function destroy($id)
     {
         $delete=Products_model::findOrFail($id);
+        $allattr=ProductAtrr_model::where('products_id',$id)->delete();
+
         $image_large=public_path().'/products/large/'.$delete->image;
         $image_medium=public_path().'/products/medium/'.$delete->image;
         $image_small=public_path().'/products/small/'.$delete->image;

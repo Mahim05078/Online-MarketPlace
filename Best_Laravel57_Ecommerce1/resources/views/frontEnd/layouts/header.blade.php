@@ -39,9 +39,19 @@
                         <ul class="nav navbar-nav">
                                 <?php 
                                     use Illuminate\Support\Facades\Session;
+                                    use Illuminate\Support\Facades\Auth;
                                     use App\Cart_model;
                                     $session_id=Session::get('session_id');
-                                    $cart_count=Cart_model::where('session_id',$session_id)->count();
+                                    
+                                    if(Auth::user()==null)
+                                    {
+                                        $mail=' ';
+                                    }
+                                    else
+                                    {
+                                        $mail=Auth::user()->email;
+                                    }
+                                    $cart_count=Cart_model::where('user_email',$mail)->count();
                                  ?>
                             @if($cart_count>0)
                             <li><a href="{{url('/viewcart')}}"><span class="fa fa-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge"><font color="red">{{$cart_count}}</font></span></span> Cart</a></li>

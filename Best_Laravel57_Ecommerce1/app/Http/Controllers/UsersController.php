@@ -43,7 +43,7 @@ class UsersController extends Controller
     }
     public function logout(){
         $user_login=User::where('id',Auth::id())->first();
-        Cart_model::where('user_email',$user_login->email)->delete();
+        //Cart_model::where('user_email',$user_login->email)->delete();
         Auth::logout();
         Session::forget('frontSession');
         return redirect('/');

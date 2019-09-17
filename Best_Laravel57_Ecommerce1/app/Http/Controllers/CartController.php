@@ -7,13 +7,23 @@ use App\ProductAtrr_model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
     public function index(){
+        if(Auth::user()==null)
+        {
+            $mail=' ';
+        }
+        else
+        {
+            $mail=Auth::user()->email;
+        }
         $session_id=Session::get('session_id');
-        $cart_datas=Cart_model::where('session_id',$session_id)->get();
+        $cart_datas=Cart_model::where('user_email',$mail)->get();
         $total_price=0;
+        
         foreach ($cart_datas as $cart_data){
             $total_price+=$cart_data->price*$cart_data->quantity;
         }
@@ -40,9 +50,19 @@ class CartController extends Controller
                 $sizeAtrr=explode("-",$inputToCart['size']);
                 $inputToCart['size']=$sizeAtrr[1];
                 $inputToCart['product_code']=$stockAvailable->sku;
+                if(Auth::user()==null)
+                {
+                    $mail='nazmulhasnsakib@gmail.com';
+                }
+                else
+                {
+                    $mail=Auth::user()->email;
+                }
                 $count_duplicateItems=Cart_model::where(['products_id'=>$inputToCart['products_id'],
                     'product_color'=>$inputToCart['product_color'],
-                    'size'=>$inputToCart['size']])->count();
+                    'size'=>$inputToCart['size'],
+                    'user_email'=>$mail
+                    ])->count();
                 if($count_duplicateItems>0){
                     return back()->with('message','Add To Cart Already!!!');
                 }else{
