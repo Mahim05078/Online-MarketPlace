@@ -51,6 +51,8 @@
                                 @elseif($id==2)
                                     <td style="text-align: center; vertical-align: middle;">
                                     <a href="{{url('/admin/orders/complete',$order->id)}}" class="btn btn-primary btn-mini">Complete</a>
+                                @else
+                                    <td style="text-align: center; vertical-align: middle;">
                                 @endif
 
                                 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Show Products</button>

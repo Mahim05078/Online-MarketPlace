@@ -6,7 +6,7 @@
         
         <li class="submenu {{$menu_active==2? ' active':''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Categories</span></a>
             <ul>
-                <li><a href="{{url('/shopowner/category/create')}}">Add New Category</a></li>
+                {{-- <li><a href="{{url('/shopowner/category/create')}}">Add New Category</a></li> --}}
                 <li><a href="{{url('/shopowner/category/index')}}">List Categories</a></li>
             </ul>
         </li>

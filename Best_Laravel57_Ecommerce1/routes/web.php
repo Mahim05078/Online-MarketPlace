@@ -110,14 +110,15 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function (){
 
     Route::get('/showapplications0','ApplicationController@showapplications0');
     Route::get('/showapplications1','ApplicationController@showapplications1');
-    Route::get('/deleteApplication0/{id},ApplicationController@deleteApplication0');
-    Route::get('/deleteApplication1/{id},ApplicationController@deleteApplication1');
+    Route::get('/deleteApplication0/{id}','ApplicationController@deleteApplication0');
+    Route::get('/deleteApplication1/{id}','ApplicationController@deleteApplication1');
     Route::get('/giveShop/{id}','ApplicationController@giveShop');
     Route::get('/application/givetime/{id}','ApplicationController@givetime');
     
     Route::get('/addNewDM','ApplicationController@addNewDM');
     Route::get('/showDeliveryMan','ApplicationController@showDeliveryMan');
     Route::post('/storeNewDM','ApplicationController@storeNewDM');
+    Route::get('delete-delman/{id}','ApplicationController@deldelman');
     
     
     ///

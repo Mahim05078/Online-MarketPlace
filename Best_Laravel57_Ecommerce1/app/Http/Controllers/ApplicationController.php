@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Application_model;
 use App\Shop_model;
 use App\Shopowner_model;
+use App\Deliveryman_model;
 use App\Http\User;
 use Mail;
 use Carbon;
@@ -147,17 +148,27 @@ class ApplicationController extends Controller
     {
         $menu_active=6;
         
-        DB::table('applications')->where('id', $id)->delete();
-        
+        $application=Application_model::findOrFail($id);
+        $shop=Shop_model::where('id',$application->shopid)->first();
+        $shop->update([
+            'bookedstatus' => 0,
+        ]);
+        $application->delete();
+        $applications= Application_model::select('*')->where ('status',0)->get(); 
         return view('application.showapplications0',compact('applications','menu_active'));
-       
     }
     public function deleteApplication1($id)
     {
         $menu_active=6;
         
-        DB::table('applications')->where('id', $id)->delete();
-        
+        $application=Application_model::findOrFail($id);
+        $shop=Shop_model::where('id',$application->shopid)->first();
+        $shop->update([
+            'bookedstatus' => 0,
+            'isrent'=> 0
+        ]);
+        $application->delete();
+        $applications= Application_model::select('*')->where ('status',1)->get(); 
         return view('application.showapplications1',compact('applications','menu_active'));
        
     }
@@ -165,27 +176,32 @@ class ApplicationController extends Controller
     public function showDeliveryMan()
     {
         $menu_active=8;
-        $delman=DB::table('deliveryman')->all();
-        return view('backEnd.showDeliveryMan',compact('delman','menu_active'));
+        $delmen=Deliveryman_model::all();
+        return view('backEnd.showDeliveryMan',compact('delmen','menu_active'));
     }
 
     public function addNewDM()
     {
         $menu_active=8;
-        DB::table('applications')->where('id', $id)->delete();
         return view('backEnd.addNewDM',compact('menu_active'));
     }
 
     public function storeNewDM(Request $request)
     {
         $this->validate($request,[
-            'email'=>'required|max:255|unique:applications,email',
+            'email'=>'max:255|unique:deliveryman,email',
             'mobile'=>'required',
         ]);
         $menu_active=8;
         $data=$request->all();
         $app=Deliveryman_model::create($data);
-        return view('backEnd.addNewDM',compact('menu_active'));
+        return view('backEnd.addNewDM',compact('menu_active'))->with('message','Add delman success!!!');
+    }
+
+    public function deldelman($id)
+    {
+        Deliveryman_model::findOrFail($id)->delete();
+        return back()->with('message','Delete delman success');
     }
     
 
