@@ -121,10 +121,6 @@ class ApplicationController extends Controller
          $spon=Shopowner_model::create($shopowner);
 
          $spon=Shopowner_model::where('shopownerid',$spon->shopownerid)->first();
-         $spon->update([
-            'shopid' => $shop->id,
-        ]);
-         
          DB::table('users')->insert(
             ['name'=>$application->name,
         'email'=>$application->email,
@@ -145,7 +141,9 @@ class ApplicationController extends Controller
 
         $menu_active=6;
         $applications= Application_model::select('*')->where ('status',1)->get();
-
+        $spon->update([
+            'shopid' => $shop->id,
+        ]);
         return view('application.showapplications1',compact('applications','menu_active'));
     }
 

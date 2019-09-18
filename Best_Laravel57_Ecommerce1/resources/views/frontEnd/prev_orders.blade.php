@@ -61,6 +61,7 @@
                                                             <tr>
                                                                 <th>Product ID</th>
                                                                 <th>Product Name</th>
+                                                                <th>Shop Name</th>
                                                                 <th>Color</th>
                                                                 <th>Size</th>
                                                                 <th>Price</th>
@@ -69,9 +70,14 @@
                                                             </thead>
                                                 <tbody>
                                                     @foreach($orderedprods as $orderedprod)
+                                                    <?php 
+                                                        $prod=DB::table('products')->where('id',$orderedprod->products_id)->first();
+                                                        $shop=DB::table('shops')->where('id',$prod->shop_id)->first();                                                               
+                                                    ?>
                                                     <tr>
                                                             <td style="vertical-align: middle;">{{$orderedprod->products_id}}</td>
                                                             <td style="vertical-align: middle;">{{$orderedprod->product_name}}</td>
+                                                            <td style="vertical-align: middle;">{{$shop->shop_name}}</td>                                                            
                                                             <td style="vertical-align: middle;">{{$orderedprod->product_color}}</td>
                                                             <td style="vertical-align: middle;">{{$orderedprod->size}}</td>
                                                             <td style="vertical-align: middle;">{{$orderedprod->price}}</td>
