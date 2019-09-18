@@ -8,9 +8,42 @@
                         <ul class="nav nav-pills">
                             <li><a href="#"><i class="fa fa-phone"></i> 01517078796</a></li>
                             <li><a href="#"><i class="fa fa-envelope"></i> nazmulhasnsakib@gmail.com</a></li>
+
+                        </ul>
+                        <ul class="nav nav-pills">
+                            <?php 
+                    $date_now=date('Y-m-d');
+                    $coupons=DB::table('coupons')->get();
+                    $valid=null;
+                    foreach ($coupons as $coupon) {
+                        if($coupon->expiry_date>$date_now)
+                        {
+                            $valid=$coupon;
+                        }
+                    }
+                    if($valid!=null)
+                    {
+                         echo '<li><a href="#"><i class="fa fa-apple"></i> Use Coupon to get offer: '.$valid->coupon_code.'</a></li>';
+                    }
+                    ?>
                         </ul>
                     </div>
                 </div>
+                <?php 
+                    $date_now=date('Y-m-d');
+                    $coupons=DB::table('coupons')->get();
+                    $valid=null;
+                    foreach ($coupons as $coupon) {
+                        if($coupon->expiry_date>$date_now)
+                        {
+                            $valid=$coupon;
+                        }
+                    }
+                    if($valid!=null)
+                    {
+                        // echo '<h1 class="title text-center">Use Coupon to get offer : '.$valid->coupon_code.'</h1>';
+                    }
+                    ?>
                 {{-- <div class="col-sm-6">
                     <div class="social-icons pull-right">
                         <ul class="nav navbar-nav">

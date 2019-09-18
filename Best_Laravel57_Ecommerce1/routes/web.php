@@ -14,6 +14,7 @@
 Route::get('/','IndexController@index');
 Route::get('/list-products','IndexController@shop');
 Route::get('/cat/{id}','IndexController@listByCat')->name('cats');
+Route::get('/shop/{id}','IndexController@listByShop')->name('shops');
 Route::get('/product-detail/{id}','IndexController@detialpro');
 ////// get Attribute ////////////
 Route::get('/get-product-attr','IndexController@getAttrs');

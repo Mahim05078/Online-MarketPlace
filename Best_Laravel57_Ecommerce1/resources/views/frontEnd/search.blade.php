@@ -6,19 +6,15 @@
         <div class="row">
             <div class="col-sm-3">
                 @include('frontEnd.layouts.category_menu')
+                @include('frontEnd.layouts.shop_menu')
             </div>
             <div class="col-sm-9 padding-right">
                 <div class="features_items"><!--features_items-->
-                    <!-- <?php 
-                            //if($byCate!=""){
-                                
-                    //             echo '<h2 class="title text-center">Category '.$byCate->name.'</h2>';
-                    //         }else{
-                    //             echo '<h2 class="title text-center">List Products</h2>';
-                    //         }
-                     ?> -->
-                     <?php 
-                     $products=$list_product;
+                    <?php 
+                    $products=$list_product;
+                            if($byCate==0){
+                                echo '<h2 class="title text-center">No Product available</h2>';
+                            }
                      ?>
                     @foreach($products as $product)
                         @if($product->category->status==1)

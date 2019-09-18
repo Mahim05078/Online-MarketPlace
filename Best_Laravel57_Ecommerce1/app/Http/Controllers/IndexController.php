@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category_model;
+use App\Shop_model;
 use App\ImageGallery_model;
 use App\ProductAtrr_model;
 use App\Products_model;
@@ -19,6 +20,14 @@ class IndexController extends Controller
         $byCate="";
         return view('frontEnd.products',compact('products','byCate'));
     }
+
+    public function listByShop($id)
+    {
+        $products=Products_model::where('shop_id',$id)->get();
+        $shop=Shop_model::where('id',$id)->first();
+        return view('frontEnd.prodbyshop',compact('products','shop'));
+    }
+
     public function listByCat($id){
         $list_product=Products_model::where('categories_id',$id)->get();
 
@@ -57,7 +66,7 @@ class IndexController extends Controller
     public function search(Request $request){
 
         $req = $request->all();
-        $byCate="";
+        $byCate=Products_model::where('p_name', 'LIKE', '%'.$req['Search'].'%')->count();
         $list_product = Products_model::where('p_name', 'LIKE', '%'.$req['Search'].'%')->get();
         return view('frontEnd.search',compact('list_product','byCate'));
     }

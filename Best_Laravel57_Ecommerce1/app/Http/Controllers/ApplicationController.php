@@ -119,6 +119,11 @@ class ApplicationController extends Controller
          $shopowner['password']=Hash::make($string);
          $shopowner['shopid']=$shop->id;
          $spon=Shopowner_model::create($shopowner);
+
+         $spon=Shopowner_model::where('shopownerid',$spon->shopownerid)->first();
+         $spon->update([
+            'shopid' => $shop->id,
+        ]);
          
          DB::table('users')->insert(
             ['name'=>$application->name,
