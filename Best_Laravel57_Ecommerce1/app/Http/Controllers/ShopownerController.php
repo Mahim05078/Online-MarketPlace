@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Shopowner_model;
 use App\Products_model;
+use App\Shop_model;
 use Session;
 use DB;
 use Illuminate\Support\Str;
@@ -14,6 +15,19 @@ use Illuminate\Support\Str;
 class ShopownerController extends Controller
 {
     public function index(){
+        $uid=Auth::user()->email;
+        $user=DB::table('shopowners')->where('email',$uid)->first();
+        $user=Shopowner_model::findOrFail($user->shopownerid);
+        $shop=Shop_model::where('shopownerid',$user->shopownerid)->first();
+        if($user->shopid==0)
+        {
+            // $user->update([
+            //     'shopid' => $shop->id,
+            // ]);
+            $user->shopid=$shop->id;
+            $user->save();
+        }
+        
         $menu_active=1;
         return view('shopowner.index',compact('menu_active'));
     }

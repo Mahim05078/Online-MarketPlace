@@ -14,7 +14,7 @@ class CartController extends Controller
     public function index(){
         if(Auth::user()==null)
         {
-            $mail='nazmulhasnsakib@gmail.com';
+            $mail=' ';
         }
         else
         {
@@ -39,8 +39,16 @@ class CartController extends Controller
         }else{
             $stockAvailable=DB::table('product_att')->select('stock','sku')->where(['products_id'=>$inputToCart['products_id'],
                 'price'=>$inputToCart['price']])->first();
+                if(Auth::user()==null)
+                {
+                    $mail='nazmulhasnsakib@gmail.com';
+                }
+                else
+                {
+                    $mail=Auth::user()->email;
+                }
             if($stockAvailable->stock>=$inputToCart['quantity']){
-                $inputToCart['user_email']='nazmulhasnsakib@gmail.com';
+                $inputToCart['user_email']=$mail;
                 $session_id=Session::get('session_id');
                 if(empty($session_id)){
                     $session_id=str_random(40);
@@ -50,14 +58,7 @@ class CartController extends Controller
                 $sizeAtrr=explode("-",$inputToCart['size']);
                 $inputToCart['size']=$sizeAtrr[1];
                 $inputToCart['product_code']=$stockAvailable->sku;
-                if(Auth::user()==null)
-                {
-                    $mail='nazmulhasnsakib@gmail.com';
-                }
-                else
-                {
-                    $mail=Auth::user()->email;
-                }
+                
                 $count_duplicateItems=Cart_model::where(['products_id'=>$inputToCart['products_id'],
                     'product_color'=>$inputToCart['product_color'],
                     'size'=>$inputToCart['size'],

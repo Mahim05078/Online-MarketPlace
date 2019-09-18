@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label for="p_code" class="control-label">{{$sid}}</label>
+                        <label for="p_code" class="control-label">Code</label>
                         <div class="controls{{$errors->has('p_code')?' has-error':''}}">
                             <input type="text" name="p_code" id="p_code" class="form-control" value="{{old('p_code')}}" title="" required="required" style="width: 400px;">
                             <span class="text-danger">{{$errors->first('p_code')}}</span>

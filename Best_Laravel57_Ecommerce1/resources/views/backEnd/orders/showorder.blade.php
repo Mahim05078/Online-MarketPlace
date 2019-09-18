@@ -116,7 +116,7 @@
                                         </div>
                                       </div>
 
-                                <a href="javascript:" rel="{{$order->id}}" rel1="delete-order" class="btn btn-danger btn-mini deleteRecord">Complete</a>
+                                <a href="javascript:" rel="{{$order->id}}" rel1="delete-order" class="btn btn-danger btn-mini deleteRecord">Delete</a>
                             </td>
                         </tr>
                     @endforeach
